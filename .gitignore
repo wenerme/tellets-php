@@ -27,3 +27,6 @@ cache/*.jpg
 .project
 .buildpath
 .settings
+
+# jetbrain IDE
+.idea
