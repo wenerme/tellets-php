@@ -1,4 +1,5 @@
 ﻿
+### 从写的项目名 更改为 tellets 继承 dropplets 的 后缀,tell means you wanner say somthing.
 ### 修改 配置设置到 dropplets/config.php
 ### 将 Post 作为一个类
 ### dropplets 类，包括大部分系统操作。
@@ -63,6 +64,15 @@ the content.
 
 只有 state 为 publish 的时候才会显示文章. 如果 没有 state字段,则默认为 draft
 	
+	
+### url 跳转
+
+```
+/category/{category}
+/tag/{tag}
+/action/(update|invalidate|login|logout|forgot)
+/{post title}
+```
 
 Dropplets 运行流程
 ------------------
@@ -73,6 +83,44 @@ Dropplets 运行流程
 	* 如果 filename 为 rss 或 atom,则生成相应输出
 	* 否则则以单页来处理,eg. youre-ready-to-go
 	
+
+项目文件结构
+-----------
+
+* /data
+	* /cache 存放缓存数据
+	* /posts 将文章放在这里
+	* /locales
+	* config.php 配置文件,在第一次运行后生成,会在配置更改后改变
+* /app
+	* boostrap.php
+	* /library 第三方库依赖
+	* /classes
+* index.php
+
+markdown file extension
+--------------------
+
+```
+.markdown
+.md
+.mdown
+.mkd
+.mkdn
+.mdwn
+.mdtxt
+.mdtext
+.text
+```
+
+
+
+参考 http://superuser.com/questions/249436/file-extension-for-markdown-files
+
+其他扩展名参考 https://github.com/github/markup
+
+
+
 国家号
 ------
 
