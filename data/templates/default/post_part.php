@@ -8,10 +8,11 @@
 		</aside>
 	</header>
 	<!-- #end header -->
-	<div class="post-intro">
+	<div class="post-content <?=IS_SINGLE?'':'post-intro'?>">
 		<?php
-			// 判断是在单页文章还是在文章列表页面,如果在列表页面就只显示简介.
-			echo IS_SINGLE? $post->getContent(): $post['intro'];
+			// 判断是在单页文章还是在文章列表页面,如果在列表页面就只显示摘要
+			// 如果没有摘要则直接显示内容
+			echo IS_SINGLE || !isset($post['intro'])? $post->getContent(): $post['intro'];
 		?></div>
 	<!-- #end intro -->
 	<div class="post-meta">
@@ -38,7 +39,7 @@
 		<?php endif;?>
 		<!-- end tags -->
 
-		<?php if(isset($posts)): //在文章列表时才显示 read more ?>
+		<?php if(isset($posts) && isset($post['intro'])): //在列表页面,并且有摘要时才显示 read more ?>
 		<a href="<?=$post['link']?>" class="read-more">READ MORE</a>
 		<?php endif;?>
 

@@ -17,17 +17,17 @@ class Post extends ArrayObject
 
 
 	
-	public function getAuthor(){return $this[self::AUTHOR_META];}
-	public function getTitle(){return $this[self::TITLE_META];}
+	public function getAuthor(){return @$this[self::AUTHOR_META];}
+	public function getTitle(){return @$this[self::TITLE_META];}
     /** @return string[] */
-	public function getCategory(){return $this[self::CATEGORY_META];}
+	public function getCategory(){return @$this[self::CATEGORY_META];}
     /** @return string[] */
-	public function getTag(){return $this[self::TAG_META];}
+	public function getTag(){return @$this[self::TAG_META];}
     /** @return int the date is unix timestamp. */
-	public function getDate(){return $this[self::DATE_META];}
-	public function getIntro(){return $this[self::INTRO_META];}
+	public function getDate(){return @$this[self::DATE_META];}
+	public function getIntro(){return @$this[self::INTRO_META];}
 
-    public function getState(){return $this[self::STATE_META];}
+    public function getState(){return @$this[self::STATE_META];}
 
     public function isPublished(){return $this->getState() === 'published';}
 
@@ -57,7 +57,7 @@ class Post extends ArrayObject
 	public function getMetaDate(){return parent::getArrayCopy();}
 	public function setMetaDate($meta){parent::exchangeArray($meta);return $this;}
 	
-	public function getMeta($name){return $this[$name];}
+	public function getMeta($name){return @$this[$name];}
 	public function setMeta($name, $value){$this[$name] = $value;return $this;}
 	/**
 	 * 解析 markdown，生成一篇文章

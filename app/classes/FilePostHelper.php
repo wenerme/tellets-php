@@ -62,6 +62,9 @@ class FilePostHelper implements IPostHelper
 	 */
 	public function Save($filename)
 	{
+		// 根据日期排序
+		usort($this->postList,function($a,$b){return $b['date'] - $a['date'];});
+
 		$metas = array();
 		foreach($this->postList as $post)
 		{
@@ -84,6 +87,9 @@ class FilePostHelper implements IPostHelper
 		$post->setMeta('link', toLinkTitle($post->getTitle()));
 		$this->postList[] = $post;
 		$this->changed = true;
+
+		// 补足可能缺失的 元数据部分
+		isset($post['date']) || $post['date'] = time();
 
 		return $this;
 	}
@@ -137,9 +143,11 @@ class FilePostHelper implements IPostHelper
 		$list = array();
 
 		foreach ($this->postList as $post)
-			if (in_array($category, $post->getCategory()))
+		{
+			$categories = $post->getCategory();
+			if (is_array($categories) && in_array($category, $categories))
 				$list[] = $post;
-
+		}
 		return $list;
 	}
 
@@ -151,7 +159,7 @@ class FilePostHelper implements IPostHelper
 		$list = array();
 
 		foreach ($this->postList as $post)
-			if (in_array($tag, $post->getTag()))
+			if (@in_array($tag, $post->getTag()))
 				$list[] = $post;
 
 		return $list;

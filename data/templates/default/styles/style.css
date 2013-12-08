@@ -110,6 +110,7 @@ body,html
 	font-weight: bold;
 	float: right;
 }
+/*
 .post-intro p:first-child:first-letter
 {
 	float: left;
@@ -119,6 +120,11 @@ body,html
 	padding-right: 8px;
 	padding-left: 3px;
 	font-family: Georgia;
+}*/
+
+.post-content
+{
+	padding: 0 20px;
 }
 
 .tag-container .tag
