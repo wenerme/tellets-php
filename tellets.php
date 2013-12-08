@@ -6,7 +6,41 @@ require_once __DIR__.'./app/bootstrap.php';
 if(false === isset($config['password']))
     goto FIRST_RUN;
 
+var_dump($_SERVER,$_GET);
 
+$filename = $_GET['filename'];
+
+
+if ($filename == NULL)
+{
+	//显示主页
+} else
+{
+	$tag = null;
+	$category = null;
+
+	preg_match('#(?<type>category|tag)\/(?<value>[^#&]+)#i',$filename,$matches);
+	if(isset($matches['value']))
+		if($matches['type'] == 'tag')
+			$tag = $matches['value'];
+		elseif($matches['type'] == 'category')
+			$category = $matches['value'];
+
+	if ($tag)
+	{
+		//显示 tag 文章列表
+	} elseif ($category)
+	{
+		// 显示 分类文章列表
+	} elseif($filename)
+	{
+		// 显示单个文章
+		$post = $dropplets->resolvePost($filename);
+	}else{
+		// i don't know why we are here.
+		// so, not found.
+	}
+}
 
 exit();
 

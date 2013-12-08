@@ -64,7 +64,7 @@ the content.
 
 只有 state 为 publish 的时候才会显示文章. 如果 没有 state字段,则默认为 draft
 	
-	
+
 ### url 跳转
 
 ```
@@ -113,6 +113,7 @@ markdown file extension
 .text
 ```
 
+\.(markdown|md|mdown|mkd|mkdn|mdwn|mdtxt|mdtext|text)^
 
 
 参考 http://superuser.com/questions/249436/file-extension-for-markdown-files

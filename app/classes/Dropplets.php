@@ -139,5 +139,17 @@ class Dropplets
     }
 
     public function resolvePost($name)
-    {}
+    {
+	    /**
+	     * @var Post
+	     */
+	    $post = null;
+	    Dropplets::TriggerBeforeEvent(Dropplets::RESOLVE_POST_EVENT,array(&$post,$name));
+
+	    // get post by link title
+
+
+	    Dropplets::TriggerAfterEvent(Dropplets::RESOLVE_POST_EVENT,array(&$post,$name));
+	    return $post;
+    }
 }

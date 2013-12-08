@@ -39,6 +39,7 @@ $config = new Config(DATA_DIR.'/config.php');
 }
 
 $dropplets = new Dropplets();
+$dropplets->config = $config;
 
 // load plugins
 foreach (glob(__DIR__."./plugins/*.php") as $filename)
