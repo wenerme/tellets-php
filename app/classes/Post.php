@@ -1,7 +1,7 @@
 <?php
 require_once(APP_DIR.'./library/markdown.php');
 
-class Post
+class Post extends ArrayObject
 {
 	const AUTHOR_META = 'author';
 	const TITLE_META = 'title';
@@ -10,26 +10,26 @@ class Post
 	const DATE_META = 'date';
 	const INTRO_META = 'intro';
     const STATE_META = 'state';
-    const HASH_META = 'hast';
+    const HASH_META = 'hash';
 	
-	private $meta = array();
+	//private $meta = array();
 	private $content = '';
 
 
 	
-	public function getAuthor(){return $this->meta[self::AUTHOR_META];}
-	public function getTitle(){return $this->meta[self::TITLE_META];}
+	public function getAuthor(){return $this[self::AUTHOR_META];}
+	public function getTitle(){return $this[self::TITLE_META];}
     /** @return string[] */
-	public function getCategory(){return $this->meta[self::CATEGORY_META];}
+	public function getCategory(){return $this[self::CATEGORY_META];}
     /** @return string[] */
-	public function getTag(){return $this->meta[self::TAG_META];}
+	public function getTag(){return $this[self::TAG_META];}
     /** @return int the date is unix timestamp. */
-	public function getDate(){return $this->meta[self::DATE_META];}
-	public function getIntro(){return $this->meta[self::INTRO_META];}
+	public function getDate(){return $this[self::DATE_META];}
+	public function getIntro(){return $this[self::INTRO_META];}
 
-    public function getState(){return $this->meta[self::STATE_META];}
+    public function getState(){return $this[self::STATE_META];}
 
-    public function isPublished(){return $this->getState() === 'publish';}
+    public function isPublished(){return $this->getState() === 'published';}
 
 	public function getContent()
     {
@@ -50,12 +50,15 @@ class Post
         $this->content = $content;
         return $this;
     }
+
+	/**
+	 * @return array
+	 */
+	public function getMetaDate(){return parent::getArrayCopy();}
+	public function setMetaDate($meta){parent::exchangeArray($meta);return $this;}
 	
-	public function getMetaDate(){return $this->meta;}
-	public function setMetaDate($meta){$this->meta = $meta;return $this;}
-	
-	public function getMeta($name){return $this->meta[$name];}
-	public function setMeta($name, $value){$this->meta[$name] = $value;return $this;}
+	public function getMeta($name){return $this[$name];}
+	public function setMeta($name, $value){$this[$name] = $value;return $this;}
 	/**
 	 * 解析 markdown，生成一篇文章
 	 * @param string $markedown
@@ -64,7 +67,7 @@ class Post
 	{
 		$post = new Post();
 
-		Dropplets::TriggerBeforeEvent(Dropplets::PARSE_POST_EVENT,array($post,$markedown));
+		Hook::TriggerBeforeEvent(Hook::PARSE_POST_EVENT,array($post,$markedown));
 
 		// 解析元字段
 		$meta = array();
@@ -115,9 +118,9 @@ class Post
         $meta[self::HASH_META] = sha1($markedown);
 
         // 处理完成
-        $post->meta = $meta;
+        $post->setMetaDate($meta);
 
-        Dropplets::TriggerAfterEvent(Dropplets::PARSE_POST_EVENT,array($post,$markedown));
+		Hook::TriggerAfterEvent(Hook::PARSE_POST_EVENT,array($post,$markedown));
         return $post;
 	}
 

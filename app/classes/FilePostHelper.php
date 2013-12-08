@@ -2,53 +2,92 @@
 
 require_once 'IPostHelper.php';
 
+function lazeLoadPostContent($post)
+{
+	return file_get_contents(CACHE_DIR.'/'.getPostCacheFileName($post));
+}
+
 class FilePostHelper implements IPostHelper
 {
-
-	const FILENAME_META = 'filename';
 
 	/** @var Post[] */
 	private $postList = array();
 
-    private $changed = false;
+	private $changed = false;
 	/**
 	 * cache the $category result.
-	 * @var string[]
-	*/
-	private $category = null;
-	/**
-	 * cache the $tag result.
+	 *
 	 * @var string[]
 	 */
-	private $tag = null;
+	private $category = NULL;
+	/**
+	 * cache the $tag result.
+	 *
+	 * @var string[]
+	 */
+	private $tag = NULL;
 
-    /**
-     * @param $filename 存储meta数据的文件名
-     */
-    public function __construct($filename)
-    {
-        if(false == file_exists($filename))
-            return;
-
-        $metalist = unserialize($filename);
-
-        foreach($metalist as $meta)
-        {
-            $post = new Post();
-            $post->setMetaDate($meta)->setContent(array(__CLASS__,'lazeLoadPostContent'));
-
-            $this->postList[] = $post;
-        }
-    }
-	private static function lazeLoadPostContent($post)
+	private $filename = '';
+	/**
+	 * @param $filename 存储meta数据的文件名
+	 */
+	public function __construct($filename)
 	{
+		$this->filename = $filename;
+		if (false == file_exists($filename))
+			return;
 
+		$metalist = unserialize(file_get_contents($filename));
+
+		foreach ($metalist as $meta)
+		{
+			$post = new Post();
+
+
+			$post->setMetaDate($meta)
+				 ->setContent('lazeLoadPostContent')
+			;
+
+			$this->postList[] = $post;
+		}
 	}
-    public function addPost($post)
-    {
-        $this->postList[] = $post;
-        $this->changed = true;
-    }
+	public function  __destruct()
+	{
+		if($this->changed)
+			$this->Save($this->filename);
+	}
+	/**
+	 * 将数据保存到指定文件
+	 * @param string $filename
+	 */
+	public function Save($filename)
+	{
+		$metas = array();
+		foreach($this->postList as $post)
+		{
+			$metas[] = $post->getMetaDate();
+
+			$content = $post->getContent();
+
+			if(is_callable($content))
+				continue;
+
+			// cache content
+			file_put_contents(CACHE_DIR.'/'.getPostCacheFileName($post),$content);
+		}
+
+		file_put_contents($filename,serialize($metas));
+	}
+
+	public function addPost($post)
+	{
+		$post->setMeta('link', toLinkTitle($post->getTitle()));
+		$this->postList[] = $post;
+		$this->changed = true;
+
+		return $this;
+	}
+
 	public function getPostList()
 	{
 		return $this->postList;
@@ -56,35 +95,37 @@ class FilePostHelper implements IPostHelper
 
 	public function getCategoryList()
 	{
-		if($this->category === null)
+		if ($this->category === NULL)
 			goto DEAL_OVER;
 
 		$category = array();
 
-		foreach($this->postList as $post)
-		foreach($post->getCategory() as $k => $v)
-			$category[$v] = true;
+		foreach ($this->postList as $post)
+			foreach ($post->getCategory() as $k => $v)
+				$category[$v] = true;
 
 		$this->category = array_keys($category);
 
 		DEAL_OVER:
+
 		return $this->category;
 	}
 
 	public function getTagList()
 	{
-		if($this->tag === null)
+		if ($this->tag === NULL)
 			goto DEAL_OVER;
 
 		$item = array();
 
-		foreach($this->postList as $post)
-		foreach($post->getTag() as $k => $v)
-			$item[$v] = true;
+		foreach ($this->postList as $post)
+			foreach ($post->getTag() as $k => $v)
+				$item[$v] = true;
 
 		$this->tag = array_keys($item);
 
 		DEAL_OVER:
+
 		return $this->tag;
 	}
 
@@ -95,12 +136,13 @@ class FilePostHelper implements IPostHelper
 	{
 		$list = array();
 
-		foreach($this->postList as $post)
-		if(in_array($category, $post->getCategory()))
-			$list[] = $post;
+		foreach ($this->postList as $post)
+			if (in_array($category, $post->getCategory()))
+				$list[] = $post;
 
 		return $list;
 	}
+
 	/**
 	 * @return Post[]
 	 */
@@ -108,15 +150,19 @@ class FilePostHelper implements IPostHelper
 	{
 		$list = array();
 
-		foreach($this->postList as $post)
-		if(in_array($tag, $post->getTag()))
-			$list[] = $post;
+		foreach ($this->postList as $post)
+			if (in_array($tag, $post->getTag()))
+				$list[] = $post;
 
 		return $list;
 	}
 
-    public function Clear()
-    {
-
-    }
+	public function Clear()
+	{
+		if (count($this->postList) > 0)
+		{
+			$this->postList = array();
+			$this->changed = true;
+		}
+	}
 }

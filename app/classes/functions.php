@@ -1,12 +1,15 @@
 <?php
 
+
+
+
 /**
  * 将字符串转换为可以放在url里的标题
- * @param $string
+ * @param string $string
  */
 function toLinkTitle($string)
 {
-	$result = $string;
+	$result = strtolower($string);
 	// 将多个空格转换为单个空格
 	// 将空格转换为 '-' 更具阅读性
 
@@ -21,7 +24,7 @@ function toLinkTitle($string)
 	// 部分被替换为 '-' 以分割
 	$result = preg_replace('#[&|:]#','-',$result);
 	// 移除
-	$result = preg_replace('#[\/?%*:|"<>.!\'();@&=+$,#\[\]]#','',$result);
+	$result = preg_replace('#[\\\/?%*:|"<>.!\'();@&=+$,\#\[\]]#','',$result);
 
 	return $result;
 }
@@ -37,4 +40,39 @@ function getPostCacheFileName($post)
 	$fn .= sprintf('-%s.post',$post->getMeta('hash'));
 
 	return $fn;
+}
+
+function getEventResult($event, $args)
+{
+	Hook::TriggerBeforeEvent($event,$args);
+	Hook::TriggerAfterEvent($event,$args);
+	return $args;
+}
+
+function getHeader()
+{
+	getEventResult(Hook::GENERATE_HEADER_EVENT, array());
+}
+
+function getFooter()
+{
+	getEventResult(Hook::GENERATE_FOOTER_EVENT, array());
+}
+
+function getMeta()
+{
+	getEventResult(Hook::GENERATE_META_EVENT, array());
+}
+
+function getTagLink($item)
+{
+	return sprintf('%stag/%s',BLOG_URL,$item);
+}
+function getPostLink($item)
+{
+	return sprintf('%s%s',BLOG_URL,$item['link']);
+}
+function getCategoryLink($item)
+{
+	return sprintf('%scategory/%s',BLOG_URL,$item);
 }

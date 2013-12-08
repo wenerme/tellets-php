@@ -23,6 +23,18 @@ cache/*.png
 cache/*.jpeg
 cache/*.jpg
 
+data/cache/*
+data/config.php
+
+data/templates/*
+!data/templates/default/
+
+data/plugins/*
+!data/plugins/index.php
+
+data/posts/*
+!data/posts/you-ready-to-go.md
+
 # eclipse project file
 .project
 .buildpath

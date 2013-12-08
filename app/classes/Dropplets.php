@@ -1,155 +1,137 @@
 <?php
-require_once APP_DIR.'./library/phpass.php';
+require_once APP_DIR . './library/phpass.php';
 
 class Dropplets
 {
 
 	/**
-	 * 解析文章时触发的事件
-	 * 
-	 * 原型： void callabck(Post, $markdown);
+	 * @var Config
 	 */
-    const PARSE_POST_EVENT = 'parse_post';
+	public $config;
+	/**
+	 * @var IPostHelper
+	 */
+	public $postHelper;
 
-    /**
-     * 在解析文章时触发的事件
-     *
-     * 原型: void callback(out &Post, $name);
-     *
-     * 如果在 Before 时hook返回hook,则系统不再进行自动查找post.
-     *
-     * 如果在 After 过后 $post 依然为 假值,则判断为 404 not found.
-     */
-    const RESOLVE_POST_EVENT = 'resolve_post';
+	public function __construct()
+	{
+	}
 
-    /**
-     * 在生成文章列表时触发的事件
-     *
-     * 原型: void callback($postFileList);
-     *
-     * 如果需要添加其他的文章来源,则在这里添加.
-     */
-    const FIND_POST_LIST_EVENT = 'find_post_list';
-
-    private static $afterHook = array();
-    private static $beforeHook = array();
-	
-    /**
-     * 添加事件之前的挂钩
-     * @param string $event 事件名
-     * @param callable $callback 回调函数
-     */
-    public static function AddBeforeHook($event, callable $callback)
-    {
-        self::$beforeHook[$event][] = $callback;
-    }
-    /**
-     * 添加事件之后的挂钩
-     * @param string $event 事件名
-     * @param callable $callback 回调函数
-     */
-    public static function AddAfterHook($event, callable $callback)
-    {
-        self::$afterHook[$event][] = $callback;
-    }
-    
-    private static function TriggerEvent($from, $event, $args)
-    {
-        if(isset($from[$event]))
-            foreach($from[$event] as $func)
-                call_user_func_array($func, $args);
-    }
-    /**
-     * 触发事件之前的挂钩
-     * @param string $event
-     * @param array $args
-     */
-    public static function TriggerBeforeEvent($event, $args)
-    {
-        self::TriggerEvent(self::$beforeHook,$event,$args);
-    }
-    /**
-     * 触发事件之后的挂钩
-     * @param string $event
-     * @param array $args
-     */
-    public static function TriggerAfterEvent($event, $args)
-    {
-        self::TriggerEvent(self::$afterHook,$event,$args);
-    }
-
-
-    /**
-     * @var Config
-     */
-    public $config ;
-    /**
-     * @var IPostHelper
-     */
-    public $postHelper;
-
-    public function __construct()
-    {}
-
-    /**
-     * 删除所有缓存文件
-     * 
-     * 只有在登录后才有效
-     */
+	/**
+	 * 删除所有缓存文件
+	 *
+	 * 只有在登录后才有效
+	 */
 	public function Invalidate()
 	{
-		
+
 	}
 
-    /**
-     * 删除缓存,从新生成所有文章
-     *
-     * 只有在登录后才有效
-     */
-    public function Update()
-    {
+	/**
+	 * 删除缓存,从新生成所有文章
+	 *
+	 * 只有在登录后才有效
+	 *
+	 * @return $this
+	 */
+	public function Update()
+	{
+		// 删除所有缓存的文章
+		$files = glob(CACHE_DIR . '/*.post');
+		foreach ($files as $file)
+			if (is_file($file))
+				unlink($file);
 
-    }
+		$this->postHelper->Clear();
 
-    public function SetUp()
-    {
-        $hasher  = new PasswordHash(8,FALSE);
-        $this->config['password'] = $hasher->HashPassword($_POST["password"]);
-    }
+		// 生成所有文章
+		$list = $this->getPostFileList();
+		foreach ($list as $file)
+		{
+			echo("add post $file <br>\n");
+			$this->postHelper->addPost(Post::ParseFile($file));
+		}
 
+		return $this;
+	}
+
+	public function SetUp()
+	{
+		$hasher = new PasswordHash(8, false);
+		$this->config['password'] = $hasher->HashPassword($_POST["password"]);
+
+		return $this;
+	}
+
+	/**
+	 * 返回是否登录成功
+	 *
+	 * @param $password
+	 * @return bool
+	 */
 	public function Login($password)
 	{
-		
+		$hasher = new PasswordHash(8, false);
+
+		if ($this->config['password'] != $hasher->HashPassword($password))
+			return false;
+
+		$_SERVER['user'] = true;
+
+		return true;
 	}
+
 	public function Logout()
 	{
-		
+		$_SERVER['user'] = NULL;
 	}
+
 	public function isLogin()
 	{
-		
+		return !!$_SERVER['user'];
 	}
 
-    /**
-     * 获取文章文件列表
-     */
-    public function getPostFileList()
-    {
+	/**
+	 * 获取文章文件列表
+	 */
+	public function getPostFileList()
+	{
+		$list = array();
+		Hook::TriggerBeforeEvent(Hook::FIND_POST_LIST_EVENT, array($list));
 
-    }
+		$list = array_merge($list, glob(POSTS_DIR . '/*'));
 
-    public function resolvePost($name)
-    {
-	    /**
-	     * @var Post
-	     */
-	    $post = null;
-	    Dropplets::TriggerBeforeEvent(Dropplets::RESOLVE_POST_EVENT,array(&$post,$name));
+		Hook::TriggerAfterEvent(Hook::FIND_POST_LIST_EVENT, array($list));
 
-	    // get post by link title
+		return $list;
+	}
 
+	public function resolvePost($name)
+	{
+		/**
+		 * @var Post
+		 */
+		$post = NULL;
+		Hook::TriggerBeforeEvent(Hook::RESOLVE_POST_EVENT, array(&$post, $name));
 
-	    Dropplets::TriggerAfterEvent(Dropplets::RESOLVE_POST_EVENT,array(&$post,$name));
-	    return $post;
-    }
+		// 只有当 $post 没有被解析的时候才进行
+		if (!$post)
+			foreach ($this->postHelper->getPostList() as $try)
+			{
+				switch ($name)
+				{
+					case $try->getMeta('link'):
+					case $try->getMeta(Post::HASH_META):
+					case $try->getMeta(Post::TITLE_META):
+						$post = $try;
+				}
+				//
+				if ($post)
+					break;
+			}
+
+		Hook::TriggerAfterEvent(Hook::RESOLVE_POST_EVENT, array(&$post, $name));
+
+		return $post;
+	}
 }

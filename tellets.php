@@ -6,46 +6,55 @@ require_once __DIR__.'./app/bootstrap.php';
 if(false === isset($config['password']))
     goto FIRST_RUN;
 
-var_dump($_SERVER,$_GET);
+//var_dump($dropplets->getPostFileList());
+//var_dump($_SERVER,$_GET);
 
-$filename = $_GET['filename'];
+//$dropplets->Update();
+
+$filename = null;
+$posts = $post = null;
+isset($_GET['filename']) && $filename = $_GET['filename'];
 
 
-if ($filename == NULL)
+if(IS_HOME)
 {
 	//显示主页
-} else
-{
-	$tag = null;
-	$category = null;
-
-	preg_match('#(?<type>category|tag)\/(?<value>[^#&]+)#i',$filename,$matches);
-	if(isset($matches['value']))
-		if($matches['type'] == 'tag')
-			$tag = $matches['value'];
-		elseif($matches['type'] == 'category')
-			$category = $matches['value'];
-
-	if ($tag)
-	{
-		//显示 tag 文章列表
-	} elseif ($category)
-	{
-		// 显示 分类文章列表
-	} elseif($filename)
-	{
-		// 显示单个文章
-		$post = $dropplets->resolvePost($filename);
-	}else{
-		// i don't know why we are here.
-		// so, not found.
-	}
+	$posts = $postHelper->getPostList();
 }
 
+preg_match('#(?<type>category|tag)\/(?<value>[^\#&]+)#i',$filename,$matches);
+if(!$posts && isset($matches['value']))
+{
+	if(IS_TAG)
+		//显示 tag 文章列表
+		$posts = $postHelper->getPostListOfTag($matches['value']);
+	else
+		// 显示 分类文章列表
+		$posts = $postHelper->getPostListOfCategory($matches['value']);
+}
+
+if($filename)
+{
+	// 显示单个文章
+	$post = $dropplets->resolvePost($filename);
+}
+
+// display
+if($posts)
+{
+	if(IS_HOME)
+		include TEMPLATE_DIR.'/index.php';
+	else
+		include TEMPLATE_DIR.'/posts.php';
+}elseif($post)
+{
+	include TEMPLATE_DIR.'/post.php';
+}else{
+	include TEMPLATE_DIR.'/404.php';
+}
 exit();
 
 FIRST_RUN:
-
 // 第一粗运行,设置密码
 if(isset($_POST['password']))
 {
