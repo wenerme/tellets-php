@@ -76,3 +76,20 @@ function getCategoryLink($item)
 {
 	return sprintf('%scategory/%s',BLOG_URL,$item);
 }
+
+/**
+ * 获取该父类的所有子类
+ *
+ * @param $parentClassName
+ * @return array
+ */
+function getSubclasses($parentClassName)
+{
+	$classes = array();
+	foreach (get_declared_classes() as $className)
+	{
+		if (is_subclass_of($className, $parentClassName))
+			$classes[] = $className;
+	}
+	return $classes;
+}

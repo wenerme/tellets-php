@@ -113,3 +113,6 @@ foreach (glob(APP_DIR . "./plugins/*.php") as $filename)
 {
 	include $filename;
 }
+
+// 启动完成
+Hook::TriggerAfterEvent(Hook::BOOTSTRAP_EVENT,array());

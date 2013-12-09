@@ -41,6 +41,13 @@ class Hook
 	const GENERATE_HEADER_EVENT = 'generate_header';
 	const GENERATE_FOOTER_EVENT = 'generate_footer';
 
+	/**
+	 * 启动时触发的事件,只会触发 after 事件.
+	 *
+	 * 原型: void callback()
+	 */
+	const BOOTSTRAP_EVENT = 'bootstrap';
+
 	protected static $afterHook = array();
 	protected static $beforeHook = array();
 
