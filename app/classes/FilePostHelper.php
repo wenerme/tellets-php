@@ -84,12 +84,17 @@ class FilePostHelper implements IPostHelper
 
 	public function addPost($post)
 	{
-		$post->setMeta('link', toLinkTitle($post->getTitle()));
-		$this->postList[] = $post;
-		$this->changed = true;
+		// 只有已发布的才能进行添加
+		if($post->isPublished())
+		{
+			$post->setMeta('link', toLinkTitle($post->getTitle()));
+			$this->postList[] = $post;
+			$this->changed = true;
 
-		// 补足可能缺失的 元数据部分
-		isset($post['date']) || $post['date'] = time();
+			// 补足可能缺失的 元数据部分
+			isset($post['date']) || $post['date'] = time();
+		}
+
 
 		return $this;
 	}

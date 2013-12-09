@@ -65,6 +65,7 @@ EOT
 一般会显示在导航,用于指向其他页面的连接,需要模板支持显示.
 EOT
 );
+	$config->addDefault('feed_max_items',10,'Feed 里显示文章的数量');
 }
 
 // 使用配置来设置环境

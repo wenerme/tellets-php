@@ -3,6 +3,14 @@ session_start();
 
 require_once __DIR__.'./app/bootstrap.php';
 
+include_once APP_DIR.'./library/Feed.php';
+include_once APP_DIR.'./library/Item.php';
+include_once APP_DIR.'./library/RSS2.php';
+include_once APP_DIR.'./library/ATOM.php';
+
+use FeedWriter\Atom;
+use FeedWriter\RSS2;
+
 if(false === isset($config['password']))
     goto FIRST_RUN;
 
@@ -15,6 +23,56 @@ $filename = null;
 $posts = $post = null;
 isset($_GET['filename']) && $filename = $_GET['filename'];
 
+if ($filename == 'rss' || $filename == 'atom')
+{
+	($filename=='rss') ? $feed = new RSS2() : $feed = new Atom();
+
+	$feed->setTitle($config['blog_title']);
+	$feed->setLink($config['blog_url']);
+	$feed->setEncoding('utf-8');
+
+	if($filename=='rss') {
+		$feed->setDescription($config['meta_description']);
+		$feed->setChannelElement('language', $config['language']);
+		$feed->setChannelElement('pubDate', date(DATE_RSS, time()));
+	} else {
+		$feed->setChannelElement('author', $config['blog_title'].' - ' . $config['author_email']);
+		$feed->setChannelElement('updated', date(DATE_RSS, time()));
+	}
+
+	$posts = $postHelper->getPostList();
+
+	if($posts)
+	{
+		$c=0;
+		foreach($posts as $post)
+		{
+			if($c<$config['feed_max_items'])
+			{
+				$item = $feed->createNewItem();
+
+				// Remove HTML from the RSS feed.
+				$item->setTitle(substr($post['title'], 4, -6));
+				$item->setLink(rtrim($config['blog_url'], '/').'/'.$post['link']);
+				$item->setDate($post['date']);
+
+
+				if($filename=='rss') {
+					$item->addElement('author', $post['title']);
+					$item->addElement('guid', rtrim($config['blog_url'], '/').'/'.$post['link']);
+				}
+
+
+				$item->setDescription($post->getIntroOrContent());
+
+				$feed->addItem($item);
+				$c++;
+			}
+		}
+	}
+	$feed->printFeed();
+	exit();
+}
 
 if(IS_HOME)
 {

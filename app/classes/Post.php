@@ -26,6 +26,7 @@ class Post extends ArrayObject
     /** @return int the date is unix timestamp. */
 	public function getDate(){return @$this[self::DATE_META];}
 	public function getIntro(){return @$this[self::INTRO_META];}
+	public function getIntroOrContent(){return isset($this[self::INTRO_META])? $this[self::INTRO_META]:$this->getContent();}
 
     public function getState(){return @$this[self::STATE_META];}
 

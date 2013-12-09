@@ -127,3 +127,71 @@ markdown file extension
 
 * 国家号 https://github.com/umpirsky/country-list
 * 在线 HTML2Markdown 工具 http://html2markdown.com/
+
+dropplets | tellets
+-|-
+将标题,作者,分类等信息固定在文档内部 | 将这些信息放在 注释中,不影响内容
+使用 Markdown | 使用 [Markdown-Extra](https://github.com/michelf/php-markdown/)
+
+我的注记
+-------
+
+获取文件列表
+
+https://api.github.com/repos/WenerLove/note/contents/
+
+内容
+
+https://api.github.com/repos/WenerLove/tellets/contents/TODO.md?ref=master
+
+获取master的treeurl
+
+https://api.github.com/repos/WenerLove/tellets/branches/master
+
+如果有 message，则直接显示，不在进行下面的，一般会出现note found
+
+递归获取所有文件
+
+https://api.github.com//repos/WenerLove/tellets/git/trees/0079abacd75914308717b68b104e149e900c767c?recursive=1
+
+我尚且没有完成的：
+
+* 根据 state 不同来判断是否显示，这里考虑实在addpost的时候抛弃，或者是在parser里抛弃
+
+如果在parser理抛弃，则会少处理很多步骤，那么parser返回什么呢？ 一个空的Post对象，state不为published
+addPost的时候继续抛弃
+
+考虑是否让parser完成所有步骤，这样有利于以后更改，因为解析的次数很少，所以也没啥影响。
+
+* 尚未实现 管理
+http://econsultancy.com/cn/blog/62844-24-beautifully-designed-web-dashboards-that-data-geeks-will-love
+http://stackoverflow.com/questions/13839920/open-source-library-framework-for-building-dashboard-bar-line-pie-etc
+
+* 尚未实现 rss atom
+* 实现一个简单的 plugin，posts_dir_recursive_import 递归的导入posts目录下的所有文章，默认是只导入 posts目录的
+* 尚未实现 action
+
+-----------------------------------------------------------------
+
+如果 PostParser 是单例的，那么则不能根据每个文章来设置参数进行设置
+但是一般这一步也是不需要的，Parser只是一个x2html的工具，且部分是由插件实现的
+
+关于实现git_repo,
+
+需要 PostParser 有一个 canParser 函数，用来判断该文件是否能解析
+以避免下载大量文件，还有一点是，下载的文件需要预先下载来缓存到本地，
+这样不让Parser进行网络下载，而只是获取一个本地的文件，并且github下载文件需要经过一系列处理
+
+还有一点，缓存的文件后缀是必要的，用来获取不同的解析器，文件名使用sha即可
+
+在下载时先判断本地文件是否存在，存在则不下载。
+
+配置git_repo
+
+plugin.git_repos
+	.enable = true
+	.repos 
+		WenerLove/tellets,WenerLove/note
+	.ignore // 可以考虑忽略匹配的文件名，不过只要state不为 published都不会显示，但是也少了解析这一步
+		/^readme/i
+		
