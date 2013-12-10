@@ -8,13 +8,15 @@ define('POSTS_DIR', DATA_DIR . '/posts/');
 define('LIB_DIR', APP_DIR . '/lib/');
 define('CLASSES_DIR', APP_DIR . '/classes/');
 
+// 配置自动加载
 set_include_path(get_include_path().PATH_SEPARATOR.LIB_DIR);
 set_include_path(get_include_path().PATH_SEPARATOR.CLASSES_DIR);
 spl_autoload_extensions('.php');
 spl_autoload_register();
 
 // 加载辅助函数
-include_once APP_DIR . "./classes/functions.php";
+include_once CLASSES_DIR . "functions.php";
+include_once LIB_DIR . "password.php";
 
 // 全局的配置
 $config = new Config(DATA_DIR . '/config.php');

@@ -1,5 +1,4 @@
 <?php
-require_once LIB_DIR . '/phpass.php';
 
 class Dropplets
 {
@@ -57,8 +56,7 @@ class Dropplets
 
 	public function SetUp()
 	{
-		$hasher = new PasswordHash(8, false);
-		$this->config['password'] = $hasher->HashPassword($_POST["password"]);
+		$this->config['password'] = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
 		return $this;
 	}
@@ -71,9 +69,7 @@ class Dropplets
 	 */
 	public function Login($password)
 	{
-		$hasher = new PasswordHash(8, false);
-
-		if ($this->config['password'] != $hasher->HashPassword($password))
+		if (!password_verify($password,$this->config['password']))
 			return false;
 
 		$_SERVER['user'] = true;
