@@ -171,6 +171,11 @@ http://stackoverflow.com/questions/13839920/open-source-library-framework-for-bu
 * 实现一个简单的 plugin，posts_dir_recursive_import 递归的导入posts目录下的所有文章，默认是只导入 posts目录的
 * 尚未实现 action
 
+需求
+----
+password_compat
+	PHP >= 5.3.7
+
 -----------------------------------------------------------------
 
 如果 PostParser 是单例的，那么则不能根据每个文章来设置参数进行设置

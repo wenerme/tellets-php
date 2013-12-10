@@ -1,18 +1,20 @@
 <?php
 
-/**
- * The app dir
- */
 define('APP_DIR', __DIR__);
-/**
- * store main data
- */
 define('DATA_DIR', realpath(__DIR__ . './../data/'));
 define('CACHE_DIR', DATA_DIR . '/cache/');
 define('POSTS_DIR', DATA_DIR . '/posts/');
 
-// 加载配置类
-include_once APP_DIR . "./classes/Config.php";
+define('LIB_DIR', APP_DIR . '/lib/');
+define('CLASSES_DIR', APP_DIR . '/classes/');
+
+set_include_path(get_include_path().PATH_SEPARATOR.LIB_DIR);
+set_include_path(get_include_path().PATH_SEPARATOR.CLASSES_DIR);
+spl_autoload_extensions('.php');
+spl_autoload_register();
+
+// 加载辅助函数
+include_once APP_DIR . "./classes/functions.php";
 
 // 全局的配置
 $config = new Config(DATA_DIR . '/config.php');
@@ -97,11 +99,12 @@ EOT
 
 
 // 完成配置加载,加载使用类
+/*
 foreach (glob(APP_DIR . "./classes/*.php") as $filename)
 {
 	include_once $filename;
 }
-
+*/
 
 $postHelper = new FilePostHelper(CACHE_DIR . '/post.meta');
 $dropplets = new Dropplets();

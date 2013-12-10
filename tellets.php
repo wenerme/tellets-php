@@ -1,12 +1,7 @@
 <?php
 session_start();
 
-require_once __DIR__.'./app/bootstrap.php';
-
-include_once APP_DIR.'./library/Feed.php';
-include_once APP_DIR.'./library/Item.php';
-include_once APP_DIR.'./library/RSS2.php';
-include_once APP_DIR.'./library/ATOM.php';
+require_once __DIR__.'/app/bootstrap.php';
 
 use FeedWriter\Atom;
 use FeedWriter\RSS2;

@@ -1,5 +1,5 @@
 <?php
-require_once APP_DIR . './library/phpass.php';
+require_once LIB_DIR . '/phpass.php';
 
 class Dropplets
 {
