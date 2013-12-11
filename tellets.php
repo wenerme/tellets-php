@@ -69,14 +69,13 @@ if ($filename == 'rss' || $filename == 'atom')
 	exit();
 }
 
+preg_match('#(?<type>category|tag)\/(?<value>[^\#&]+)#i',$filename,$matches);
+
 if(IS_HOME)
 {
 	//显示主页
 	$posts = $postHelper->getPostList();
-}
-
-preg_match('#(?<type>category|tag)\/(?<value>[^\#&]+)#i',$filename,$matches);
-if(!$posts && isset($matches['value']))
+}else if(isset($matches['value']))
 {
 	if(IS_TAG)
 		//显示 tag 文章列表

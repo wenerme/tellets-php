@@ -48,7 +48,7 @@ class Dropplets
 		foreach ($list as $file)
 		{
 			echo("add post $file <br>\n");
-			$this->postHelper->addPost(Post::ParseFile($file));
+			$this->postHelper->addPost(ParserFactory::TryParseFile($file));
 		}
 
 		return $this;

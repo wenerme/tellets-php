@@ -1,10 +1,13 @@
 ﻿
 ### 从写的项目名 更改为 tellets 继承 dropplets 的 后缀,tell means you wanner say somthing.
+
+tellets also mean  lets tell
+
 ### 修改 配置设置到 dropplets/config.php
-### 将 Post 作为一个类
+### X 将 Post 作为一个类
 ### dropplets 类，包括大部分系统操作。
 
-### 修改 dropplets 的内容元字段
+### X 修改 dropplets 的内容元字段
 
 ···
 <!-- title: this is the post title -->
@@ -29,7 +32,7 @@
 1. trim key 和 value
 2. 将key中多个空格替换为单个空格
 
-### 修改以支持 <!-- more -->
+### X 修改以支持 <!-- more -->
 
 ···
 description here.
@@ -56,11 +59,11 @@ the content.
 
 等，选择如果不存在 ·this-is-first-post.md ·，则先选择默认语言的文章，默认语言在配置里有。否则选择第一个获取到的文章。
 
-### 内容模板修改为只包含主要的 body
+### X 内容模板修改为只包含主要的 body
 
 	这样只需要替换body就好了。而不是缓存整个页面，这个到时候再考虑。
 
-### 发布文章
+### X 发布文章
 
 只有 state 为 publish 的时候才会显示文章. 如果 没有 state字段,则默认为 draft
 	
@@ -71,6 +74,7 @@ the content.
 /category/{category}
 /tag/{tag}
 /action/(update|invalidate|login|logout|forgot)
+/admin/
 /{post title}
 ```
 
@@ -113,7 +117,7 @@ markdown file extension
 .text
 ```
 
-\.(markdown|md|mdown|mkd|mkdn|mdwn|mdtxt|mdtext|text)^
+#\.(markdown|md|mdown|mkd|mkdn|mdwn|mdtxt|mdtext|text)$#i
 
 
 参考 http://superuser.com/questions/249436/file-extension-for-markdown-files
@@ -154,9 +158,10 @@ https://api.github.com/repos/WenerLove/tellets/branches/master
 
 https://api.github.com//repos/WenerLove/tellets/git/trees/0079abacd75914308717b68b104e149e900c767c?recursive=1
 
-我尚且没有完成的：
+尚且没有完成的
+---------------
 
-* 根据 state 不同来判断是否显示，这里考虑实在addpost的时候抛弃，或者是在parser里抛弃
+* X 根据 state 不同来判断是否显示，这里考虑实在addpost的时候抛弃，或者是在parser里抛弃
 
 如果在parser理抛弃，则会少处理很多步骤，那么parser返回什么呢？ 一个空的Post对象，state不为published
 addPost的时候继续抛弃
@@ -167,14 +172,17 @@ addPost的时候继续抛弃
 http://econsultancy.com/cn/blog/62844-24-beautifully-designed-web-dashboards-that-data-geeks-will-love
 http://stackoverflow.com/questions/13839920/open-source-library-framework-for-building-dashboard-bar-line-pie-etc
 
-* 尚未实现 rss atom
+* X 尚未实现 rss atom
 * 实现一个简单的 plugin，posts_dir_recursive_import 递归的导入posts目录下的所有文章，默认是只导入 posts目录的
 * 尚未实现 action
+* 尚未实现翻页
+* 尚未实现 link 元字段指定持久链接
+
 
 需求
 ----
 password_compat
-	PHP >= 5.3.7
+	PHP >= 5.3
 
 -----------------------------------------------------------------
 

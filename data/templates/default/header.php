@@ -6,8 +6,8 @@
 	<title><?=$post['title']?> - <?=BLOG_TITLE?></title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href='//cdnjs.cloudflare.com/ajax/libs/normalize/2.1.3/normalize.min.css' rel='stylesheet'>
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link href='<?=TEMPLATE_URL ?>/styles/normalize.css' rel='stylesheet'>
 	<link href='<?=TEMPLATE_URL ?>/styles/style.css' rel='stylesheet'>
 </head>
 

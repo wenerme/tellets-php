@@ -84,6 +84,8 @@ class FilePostHelper implements IPostHelper
 
 	public function addPost($post)
 	{
+		if(!$post)
+			throw new InvalidArgumentException("Post '$post' is invalid.");
 		// 只有已发布的才能进行添加
 		if($post->isPublished())
 		{

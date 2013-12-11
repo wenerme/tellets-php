@@ -100,14 +100,6 @@ EOT
 }
 
 
-// 完成配置加载,加载使用类
-/*
-foreach (glob(APP_DIR . "./classes/*.php") as $filename)
-{
-	include_once $filename;
-}
-*/
-
 $postHelper = new FilePostHelper(CACHE_DIR . '/post.meta');
 $dropplets = new Dropplets();
 $dropplets->config = & $config;
@@ -119,6 +111,8 @@ foreach (glob(APP_DIR . "./plugins/*.php") as $filename)
 {
 	include $filename;
 }
+
+ParserFactory::RegisterParser('#\.(markdown|md|mdown|mkd|mkdn|mdwn|mdtxt|mdtext|text)$#i', 'MarkdownParser');
 
 // 启动完成
 Hook::TriggerAfterEvent(Hook::BOOTSTRAP_EVENT,array());
