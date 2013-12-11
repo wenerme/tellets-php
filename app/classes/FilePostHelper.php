@@ -89,12 +89,17 @@ class FilePostHelper implements IPostHelper
 		// 只有已发布的才能进行添加
 		if($post->isPublished())
 		{
-			$post->setMeta('link', toLinkTitle($post->getTitle()));
+			// 保持link不会改变
+			if(isset($post['link']))
+				$post['link'] = toLinkTitle($post->getTitle());
+			else
+				$post['link'] = toLinkTitle($post['link']);
+
+			// 如果没有 date,则设置为 0,这样date会是最老的文章时间
+			isset($post['date']) || $post['date'] = 0;
+
 			$this->postList[] = $post;
 			$this->changed = true;
-
-			// 补足可能缺失的 元数据部分
-			isset($post['date']) || $post['date'] = time();
 		}
 
 

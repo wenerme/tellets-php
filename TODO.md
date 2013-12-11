@@ -176,7 +176,7 @@ http://stackoverflow.com/questions/13839920/open-source-library-framework-for-bu
 * 实现一个简单的 plugin，posts_dir_recursive_import 递归的导入posts目录下的所有文章，默认是只导入 posts目录的
 * 尚未实现 action
 * 尚未实现翻页
-* 尚未实现 link 元字段指定持久链接
+* X 尚未实现 link 元字段指定持久链接
 
 
 需求
