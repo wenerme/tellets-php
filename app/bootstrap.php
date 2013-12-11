@@ -107,7 +107,7 @@ $dropplets->postHelper = & $postHelper;
 
 
 // load plugins
-foreach (glob(APP_DIR . "./plugins/*.php") as $filename)
+foreach (glob(APP_DIR . "./plugins/*/main.php") as $filename)
 {
 	include $filename;
 }
