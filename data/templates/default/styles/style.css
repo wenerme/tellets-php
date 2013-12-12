@@ -140,3 +140,8 @@ body,html
 {
 	float: right;
 }
+
+.post-content img
+{
+	max-width: 100%;
+}
