@@ -91,9 +91,9 @@ class FilePostHelper implements IPostHelper
 		{
 			// 保持link不会改变
 			if(isset($post['link']))
-				$post['link'] = toLinkTitle($post->getTitle());
-			else
 				$post['link'] = toLinkTitle($post['link']);
+			else
+				$post['link'] = toLinkTitle($post->getTitle());
 
 			// 如果没有 date,则设置为 0,这样date会是最老的文章时间
 			isset($post['date']) || $post['date'] = 0;

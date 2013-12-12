@@ -177,7 +177,7 @@ http://stackoverflow.com/questions/13839920/open-source-library-framework-for-bu
 * 尚未实现 action
 * 尚未实现翻页
 * X 尚未实现 link 元字段指定持久链接
-
+* 尚未实现多作者
 
 需求
 ----
