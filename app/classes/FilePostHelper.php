@@ -194,4 +194,34 @@ class FilePostHelper implements IPostHelper
 	{
 		return count($this->postList);
 	}
+
+	public function indexOfPost($post)
+	{
+		return array_search($post, $this->postList);
+	}
+	public function hasNextPost($post)
+	{
+		return $this->indexOfPost($post) < count($this->postList)-1;
+	}
+
+	public function hasPrevPost($post)
+	{
+		return $this->indexOfPost($post) > 0;
+	}
+
+	public function getNextPost($post)
+	{
+		$i = $this->indexOfPost($post) + 1;
+		if(! array_key_exists($i, $this->postList))
+			throw new Exception('no next post');
+		return $this->postList[$i];
+	}
+
+	public function getPrevPost($post)
+	{
+		$i = $this->indexOfPost($post) - 1;
+		if(! array_key_exists($i, $this->postList))
+			throw new Exception('no prev post');
+		return $this->postList[$i];
+	}
 }

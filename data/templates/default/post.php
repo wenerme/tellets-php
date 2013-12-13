@@ -5,11 +5,20 @@
 <div id="main-wrap">
 	<div id="content">
 		<?php
-			include TEMPLATE_DIR.'./post_part.php';
+			include __DIR__.'./post_part.php';
 		?>
 		<div class="pagination">
-			<a href="#" class="prev-page">&lt; Newer Posts</a>
-			<a href="#" class="next-page">Older Posts &gt;</a>
+			<?php if($postHelper->hasPrevPost($post)):
+				$thepost = $postHelper->getPrevPost($post);
+				?>
+			<a href="<?=getPostLink($thepost)?>" class="prev-page">&lt; <?=$thepost['title']?></a>
+			<?php endif;?>
+
+			<?php if($postHelper->hasNextPost($post)):
+				$thepost = $postHelper->getNextPost($post);
+				?>
+				<a href="<?=getPostLink($thepost)?>" class="next-page"><?=$thepost['title']?> &gt;</a>
+			<?php endif;?>
 		</div>
 	</div>
 	<!-- #end-content -->

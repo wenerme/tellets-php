@@ -33,4 +33,10 @@ interface IPostHelper
 	 * @return int
 	 */
 	public function getPostCount();
+
+	public function hasNextPost($post);
+	public function hasPrevPost($post);
+
+	public function getNextPost($post);
+	public function getPrevPost($post);
 }
