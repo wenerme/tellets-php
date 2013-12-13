@@ -68,7 +68,7 @@ class Hook
 	 * @param string $event 事件名
 	 * @param callable $callback 回调函数
 	 */
-	public static function AddBeforeHook($event, callable $callback)
+	public static function AddBeforeHook($event, $callback)
 	{
 		self::$beforeHook[$event][] = $callback;
 	}
@@ -78,7 +78,7 @@ class Hook
 	 * @param string $event 事件名
 	 * @param callable $callback 回调函数
 	 */
-	public static function AddAfterHook($event, callable $callback)
+	public static function AddAfterHook($event, $callback)
 	{
 		self::$afterHook[$event][] = $callback;
 	}
@@ -97,7 +97,10 @@ class Hook
 	{
 		if (isset($from[$event]))
 			foreach ($from[$event] as $func)
-				call_user_func_array($func, $args);
+				if(is_callable($func))
+					call_user_func_array($func, $args);
+				else
+					throw new Exception("uncallable $func");
 	}
 
 	/**

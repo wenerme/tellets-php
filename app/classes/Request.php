@@ -34,7 +34,8 @@ class Request
 		*/
 
 		// 初始 type 为false
-		foreach(explode('|','category|tag|action|single|pages|home') as $v) $type[$v] = false;
+		foreach(explode('|','category|tag|action|single|pages|home') as $v)
+			$type[$v] = false;
 
 		preg_match('~(?<type>category|tag|action)\/(?<value>[^\/\\#&]+)~i', $params,$matches);
 
@@ -42,9 +43,9 @@ class Request
 		{
 			if($type['category'] = $matches['type'] === 'category')
 				$this->category = $matches['value'];
-			elseif($type['tag'] = $matches['tag'] === 'tag')
+			elseif($type['tag'] = $matches['type'] === 'tag')
 				$this->tag = $matches['value'];
-			elseif($type['action'] = $matches['action'] === 'action')
+			elseif($type['action'] = $matches['type'] === 'action')
 				$this->action = $matches['value'];
 		}
 
