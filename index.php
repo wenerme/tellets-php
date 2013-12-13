@@ -17,6 +17,7 @@ if(false === isset($config['password']))
 $filename = null;
 $posts = $post = null;
 isset($_GET['filename']) && $filename = $_GET['filename'];
+$request = new Request($filename);
 
 if ($filename == 'rss' || $filename == 'atom')
 {
@@ -91,10 +92,13 @@ if($filename)
 	$post = $dropplets->resolvePost($filename);
 }
 
+$post = $request->getSinglePost();
+$posts = $request->getPosts();
+
 // display
 if($posts)
 {
-	if(IS_HOME)
+	if($request->isHome())
 		include TEMPLATE_DIR.'/index.php';
 	else
 		include TEMPLATE_DIR.'/posts.php';

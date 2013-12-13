@@ -185,4 +185,13 @@ class FilePostHelper implements IPostHelper
 			$this->changed = true;
 		}
 	}
+
+	/**
+	 * 获取总的文章数量
+	 * @return int
+	 */
+	public function getPostCount()
+	{
+		return count($this->postList);
+	}
 }

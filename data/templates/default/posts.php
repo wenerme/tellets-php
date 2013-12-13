@@ -3,12 +3,16 @@
 	<div id="main-wrap">
 		<div id="content">
 			<?php
-			foreach($posts as $post):
+			foreach($request->getPosts() as $post):
 				include TEMPLATE_DIR.'./post_part.php';
 			endforeach;?>
 			<div class="pagination">
-				<a href="#" class="prev-page">&lt; Newer Posts</a>
-				<a href="#" class="next-page">Older Posts &gt;</a>
+				<?php if($request->hasPrevPage()): ?>
+				<a href="<?=$request->getPrevPageURL()?>" class="prev-page">&lt; Newer Posts</a>
+				<?php endif?>
+				<?php if($request->hasNextPage()): ?>
+					<a href="<?=$request->getNextPageURL()?>" class="next-page">Older Posts &gt;</a>
+				<?php endif?>
 			</div>
 		</div>
 		<!-- #end-content -->

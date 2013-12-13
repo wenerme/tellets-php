@@ -27,4 +27,10 @@ interface IPostHelper
      * @return $this
      */
     public function Clear();
+
+	/**
+	 * 获取总的文章数量
+	 * @return int
+	 */
+	public function getPostCount();
 }
