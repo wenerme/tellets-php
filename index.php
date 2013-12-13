@@ -72,13 +72,13 @@ if ($filename == 'rss' || $filename == 'atom')
 
 preg_match('#(?<type>category|tag)\/(?<value>[^\#&]+)#i',$filename,$matches);
 
-if(IS_HOME)
+if($request->isHome())
 {
 	//显示主页
 	$posts = $postHelper->getPostList();
 }else if(isset($matches['value']))
 {
-	if(IS_TAG)
+	if($request->isTag())
 		//显示 tag 文章列表
 		$posts = $postHelper->getPostListOfTag($matches['value']);
 	else

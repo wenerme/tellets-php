@@ -8,11 +8,11 @@
 		</aside>
 	</header>
 	<!-- #end header -->
-	<div class="post-content <?=IS_SINGLE?'':'post-intro'?>">
+	<div class="post-content <?=$request->isSingle()?'':'post-intro'?>">
 		<?php
 			// 判断是在单页文章还是在文章列表页面,如果在列表页面就只显示摘要
 			// 如果没有摘要则直接显示内容
-			echo IS_SINGLE || !isset($post['intro'])? $post->getContent(): $post['intro'];
+			echo $request->isSingle() || !isset($post['intro'])? $post->getContent(): $post['intro'];
 		?></div>
 	<!-- #end intro -->
 	<div class="post-meta">

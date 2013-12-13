@@ -80,7 +80,10 @@ body,html
 	max-width: 800px;
 	margin: 0 auto;
 }
-
+.post
+{
+	padding: 20px 0;
+}
 .post-header
 {
 	text-align: center;

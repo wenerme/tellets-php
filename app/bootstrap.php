@@ -88,15 +88,6 @@ EOT
 	// 似乎无效, 在 5.3 以上设置应该是可以用的
 	// http://php.net/manual/zh/ini.core.php
 	ini_set('short_open_tag', 1);
-
-	// Get the current page.
-	$currentpage = @($_SERVER["HTTPS"] != 'on') ? 'http://' . $_SERVER["SERVER_NAME"] : 'https://' . $_SERVER["SERVER_NAME"];
-	$currentpage .= $_SERVER["REQUEST_URI"];
-	// page type
-	define('IS_HOME', $currentpage == BLOG_URL);
-	define('IS_CATEGORY', (bool)strstr($_SERVER['REQUEST_URI'], '/category/'));
-	define('IS_TAG', (bool)strstr($_SERVER['REQUEST_URI'], '/tag/'));
-	define('IS_SINGLE', !(IS_HOME || IS_CATEGORY || IS_TAG));
 }
 
 
