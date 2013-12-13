@@ -39,8 +39,8 @@
 		<?php endif;?>
 		<!-- end tags -->
 
-		<?php if(isset($posts) && isset($post['intro'])): //在列表页面,并且有摘要时才显示 read more ?>
-		<a href="<?=$post['link']?>" class="read-more">READ MORE</a>
+		<?php if($request->isPages() && isset($post['intro'])): //在列表页面,并且有摘要时才显示 read more ?>
+		<a href="<?=getPostLink($post)?>" class="read-more">READ MORE</a>
 		<?php endif;?>
 
 	</div>

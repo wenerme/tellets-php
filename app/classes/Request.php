@@ -36,7 +36,7 @@ class Request
 		// 初始 type 为false
 		foreach(explode('|','category|tag|action|single|pages|home') as $v) $type[$v] = false;
 
-		preg_match('~(?<type>category|tag|action)\/(?<value>[^\/\\#&]+)(\/page\/(?<pageno>[0-9]+))?~i', $params,$matches);
+		preg_match('~(?<type>category|tag|action)\/(?<value>[^\/\\#&]+)~i', $params,$matches);
 
 		if(isset($matches['type']) && isset($matches['value']))
 		{
@@ -49,7 +49,7 @@ class Request
 		}
 
 		// 对主页的判断 如果只有页号参数 则依然是主页
-		$type['home'] = (bool)preg_match('#(\/page\/(?<pageno>[0-9]+))?#i', $params);
+		$type['home'] = (bool)preg_match('#^(page\/(?<pageno>[0-9]+))?$#i', $params);
 
 
 		$type['single'] = !($type['home'] || $type['category'] || $type['tag'] || $type['action']);
@@ -58,6 +58,7 @@ class Request
 		if($type['single'])
 			$this->title = $params;
 
+		preg_match('#page\/(?<pageno>[0-9]+)#i', $params, $matches);
 		if(isset($matches['pageno']))
 			$this->pageNo = $matches['pageno'];
 
@@ -130,14 +131,14 @@ class Request
 	{
 		if(! $this->hasNextPage()) throw new Exception('no next page');
 		$url = $this->getPageURL();
-		$url .= '/page/'.($this->pageNo + 1);
+		$url .= 'page/'.($this->pageNo + 1);
 		return $url;
 	}
 	public function getPrevPageURL()
 	{
 		if(! $this->hasPrevPage()) throw new Exception('no prev page');
 		$url = $this->getPageURL();
-		$url .= '/page/'.($this->pageNo + 1);
+		$url .= 'page/'.($this->pageNo + 1);
 		return $url;
 	}
 
@@ -149,12 +150,12 @@ class Request
 		if($type['home'])
 			;
 		elseif($type['single'])
-			$url .= '/'.$this->title;
+			$url .= $this->title;
 		else{
 			foreach(explode('|','category|tag|action') as $v)
 				if($type[$v])
 				{
-					$url .= '/'.$v.'/'.$this->$v;
+					$url .= $v.'/'.$this->$v;
 					break;
 				}
 		}
