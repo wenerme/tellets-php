@@ -1,6 +1,6 @@
 <?php
 
-class Dropplets
+class Tellets
 {
 
 	/**

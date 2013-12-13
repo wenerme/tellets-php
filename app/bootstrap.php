@@ -92,9 +92,9 @@ EOT
 
 
 $postHelper = new FilePostHelper(CACHE_DIR . '/post.meta');
-$dropplets = new Dropplets();
-$dropplets->config = & $config;
-$dropplets->postHelper = & $postHelper;
+$tellets = new Tellets();
+$tellets->config = & $config;
+$tellets->postHelper = & $postHelper;
 
 
 // load plugins

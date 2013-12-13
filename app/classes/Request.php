@@ -168,11 +168,11 @@ class Request
 	 */
 	public function getSinglePost()
 	{
-		global $dropplets;
+		global $tellets;
 		$post = &$this->post;
 		if(is_null($post))
 		{
-			$post = $dropplets->resolvePost($this->title);
+			$post = $tellets->resolvePost($this->title);
 		}
 		return $post;
 	}
