@@ -17,7 +17,8 @@ if(false === isset($config['password']))
 $filename = null;
 $posts = $post = null;
 isset($_GET['filename']) && $filename = $_GET['filename'];
-$request = new Request($filename);
+$request = new Request($_GET['filename']);
+Hook::TriggerAfterEvent(Hook::RESOLVE_REQUEST, array($request));
 
 if ($filename == 'rss' || $filename == 'atom')
 {
@@ -70,44 +71,30 @@ if ($filename == 'rss' || $filename == 'atom')
 	exit();
 }
 
-preg_match('#(?<type>category|tag)\/(?<value>[^\#&]+)#i',$filename,$matches);
+function renderContext()
+{
+	global $request, $config, $postHelper;
 
-if($request->isHome())
-{
-	//显示主页
-	$posts = $postHelper->getPostList();
-}else if(isset($matches['value']))
-{
-	if($request->isTag())
-		//显示 tag 文章列表
-		$posts = $postHelper->getPostListOfTag($matches['value']);
-	else
-		// 显示 分类文章列表
-		$posts = $postHelper->getPostListOfCategory($matches['value']);
+	$post = $request->getSinglePost();
+	$posts = $request->getPosts();
+
+	// display
+	if($posts)
+	{
+		if($request->isHome())
+			include TEMPLATE_DIR.'/index.php';
+		else
+			include TEMPLATE_DIR.'/posts.php';
+	}elseif($post)
+	{
+		include TEMPLATE_DIR.'/post.php';
+	}else{
+		include TEMPLATE_DIR.'/404.php';
+	}
 }
 
-if($filename)
-{
-	// 显示单个文章
-	$post = $dropplets->resolvePost($filename);
-}
+renderContext();
 
-$post = $request->getSinglePost();
-$posts = $request->getPosts();
-
-// display
-if($posts)
-{
-	if($request->isHome())
-		include TEMPLATE_DIR.'/index.php';
-	else
-		include TEMPLATE_DIR.'/posts.php';
-}elseif($post)
-{
-	include TEMPLATE_DIR.'/post.php';
-}else{
-	include TEMPLATE_DIR.'/404.php';
-}
 exit();
 
 FIRST_RUN:

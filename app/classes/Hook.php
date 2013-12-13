@@ -10,7 +10,7 @@ class Hook
 	 *
 	 * 原型： void callabck(Post, $markdown);
 	 */
-	const PARSE_POST_EVENT = 'parse_post';
+	const PARSE_POST = 'parse_post';
 	/**
 	 * 在解析文章时触发的事件
 	 *
@@ -20,7 +20,7 @@ class Hook
 	 *
 	 * 如果在 After 过后 $post 依然为 假值,则判断为 404 not found.
 	 */
-	const RESOLVE_POST_EVENT = 'resolve_post';
+	const RESOLVE_POST = 'resolve_post';
 	/**
 	 * 在生成文章列表时触发的事件
 	 *
@@ -28,7 +28,17 @@ class Hook
 	 *
 	 * 如果需要添加其他的文章来源,则在这里添加.
 	 */
-	const FIND_POST_LIST_EVENT = 'find_post_list';
+	const FIND_POST_LIST = 'find_post_list';
+
+	/**
+	 * 在解析 REQUEST 时触发
+	 *
+	 * 原型: void callback($request);
+	 *
+	 * 只会触发 AFTER 事件, 因为 $request 是一次性解析完成的
+	 * 可以用来添加一些动作,例如 action/rss
+	 */
+	const RESOLVE_REQUEST = 'resolve';
 	/**
 	 * 生成 meta 时触发的事件
 	 *
@@ -37,16 +47,18 @@ class Hook
 	 * 如果想要添加内容到 生成过程 中,则在 触发时直接输出即可
 	 *
 	 */
-	const GENERATE_META_EVENT = 'generate_meta';
-	const GENERATE_HEADER_EVENT = 'generate_header';
-	const GENERATE_FOOTER_EVENT = 'generate_footer';
+	const GENERATE_META = 'generate_meta';
+	const GENERATE_HEADER = 'generate_header';
+	const GENERATE_FOOTER = 'generate_footer';
 
 	/**
-	 * 启动时触发的事件,只会触发 after 事件.
+	 * 启动时触发的事件
 	 *
 	 * 原型: void callback()
+	 *
+	 * 只会触发 AFTER 事件, 触发该事件时,意味着必要的环境以及设置好
 	 */
-	const BOOTSTRAP_EVENT = 'bootstrap';
+	const BOOTSTRAP = 'bootstrap';
 
 	protected static $afterHook = array();
 	protected static $beforeHook = array();

@@ -25,13 +25,13 @@ abstract class Parser
 	{
 		$post = new Post();
 
-		Hook::TriggerBeforeEvent(Hook::PARSE_POST_EVENT,array($post,$content));
+		Hook::TriggerBeforeEvent(Hook::PARSE_POST,array($post,$content));
 
 		$post->setMetaDate($this->parseMetaOnly($content));
 		if($post->isPublished())
 			$post->setContent($this->parseContentOnly($content));
 
-		Hook::TriggerAfterEvent(Hook::PARSE_POST_EVENT,array($post,$content));
+		Hook::TriggerAfterEvent(Hook::PARSE_POST,array($post,$content));
 
 		return $post;
 	}

@@ -93,11 +93,11 @@ class Dropplets
 	public function getPostFileList()
 	{
 		$list = array();
-		Hook::TriggerBeforeEvent(Hook::FIND_POST_LIST_EVENT, array($list));
+		Hook::TriggerBeforeEvent(Hook::FIND_POST_LIST, array($list));
 
 		$list = array_merge($list, glob(POSTS_DIR . '/*'));
 
-		Hook::TriggerAfterEvent(Hook::FIND_POST_LIST_EVENT, array($list));
+		Hook::TriggerAfterEvent(Hook::FIND_POST_LIST, array($list));
 
 		return $list;
 	}
@@ -108,7 +108,7 @@ class Dropplets
 		 * @var Post
 		 */
 		$post = NULL;
-		Hook::TriggerBeforeEvent(Hook::RESOLVE_POST_EVENT, array(&$post, $name));
+		Hook::TriggerBeforeEvent(Hook::RESOLVE_POST, array(&$post, $name));
 
 		// 只有当 $post 没有被解析的时候才进行
 		if (!$post)
@@ -126,7 +126,7 @@ class Dropplets
 					break;
 			}
 
-		Hook::TriggerAfterEvent(Hook::RESOLVE_POST_EVENT, array(&$post, $name));
+		Hook::TriggerAfterEvent(Hook::RESOLVE_POST, array(&$post, $name));
 
 		return $post;
 	}

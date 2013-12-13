@@ -51,17 +51,17 @@ function getEventResult($event, $args)
 
 function getHeader()
 {
-	getEventResult(Hook::GENERATE_HEADER_EVENT, array());
+	getEventResult(Hook::GENERATE_HEADER, array());
 }
 
 function getFooter()
 {
-	getEventResult(Hook::GENERATE_FOOTER_EVENT, array());
+	getEventResult(Hook::GENERATE_FOOTER, array());
 }
 
 function getMeta()
 {
-	getEventResult(Hook::GENERATE_META_EVENT, array());
+	getEventResult(Hook::GENERATE_META, array());
 }
 
 function getTagLink($item)
