@@ -42,3 +42,6 @@ data/posts/*
 
 # jetbrain IDE
 .idea
+
+# ignore my study
+test.php

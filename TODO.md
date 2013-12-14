@@ -1,11 +1,11 @@
 ﻿
-### 从写的项目名 更改为 tellets 继承 dropplets 的 后缀,tell means you wanner say somthing.
+### X 从写的项目名 更改为 tellets 继承 dropplets 的 后缀,tell means you wanner say somthing.
 
 tellets also mean  lets tell
 
-### 修改 配置设置到 dropplets/config.php
+### X 修改 配置设置到 dropplets/config.php
 ### X 将 Post 作为一个类
-### dropplets 类，包括大部分系统操作。
+### X dropplets 类，包括大部分系统操作。
 
 ### X 修改 dropplets 的内容元字段
 
@@ -68,7 +68,7 @@ the content.
 只有 state 为 publish 的时候才会显示文章. 如果 没有 state字段,则默认为 draft
 	
 
-### url 跳转
+### X url 跳转
 
 ```
 /category/{category}
@@ -98,7 +98,7 @@ Dropplets 运行流程
 	* config.php 配置文件,在第一次运行后生成,会在配置更改后改变
 * /app
 	* boostrap.php
-	* /library 第三方库依赖
+	* /lib 第三方库依赖
 	* /classes
 * index.php
 
@@ -174,11 +174,14 @@ http://stackoverflow.com/questions/13839920/open-source-library-framework-for-bu
 
 * X 尚未实现 rss atom
 * 实现一个简单的 plugin，posts_dir_recursive_import 递归的导入posts目录下的所有文章，默认是只导入 posts目录的
-* 尚未实现 action
+* X 尚未实现 action
 * X 尚未实现翻页
 * X 尚未实现 link 元字段指定持久链接
 * 尚未实现多作者
 * X 尚未实现文章导航 上一篇文章和下一篇文章
+* 添加 Tag 和 Category 列表到 footer
+* 实现 github_repo
+* 修改 config,以支持数组类型的配置选项
 
 需求
 ----

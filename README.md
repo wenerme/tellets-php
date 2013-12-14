@@ -1,3 +1,9 @@
+<!-- title: Tellets README -->
+<!-- category: Posting -->
+<!-- tag: Project -->
+<!-- date: 2013/12/7 -->
+<!-- state: published -->
+
 Dropplets
 =========
 
