@@ -61,19 +61,23 @@ class Config extends ArrayObject
 		foreach($items as $k => $v)
 		{
 			$p = sprintf('%s[%s]',$prefix, var_export($k,true));
+			$desc = @$description[$k];
+
 			if(is_array($v))
 			{
-				$result .= $this->serializeItem($v, $p, isset($description[$k])?$description[$k]:array());
+				if(!is_array($desc))
+				{
+					$result .= PHP_EOL."/* $desc */";
+					$desc = array();
+				}
+				$result .= $this->serializeItem($v, $p, $desc);
 				continue;
 			}
 			//
 			$content = PHP_EOL;
 
-			if(isset($description[$k]) && $description[$k])
-			{
-				$desc = $description[$k];
+			if($desc)
 				$content .= "/* $desc */".PHP_EOL;
-			}
 
 			$content .= sprintf('%s = %s;'.PHP_EOL
 				, $p, var_export($v, true));
