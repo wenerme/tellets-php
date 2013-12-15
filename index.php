@@ -12,7 +12,7 @@ $filename = null;
 $posts = $post = null;
 isset($_GET['filename']) && $filename = $_GET['filename'];
 $request = new Request($_GET['filename']);
-Hook::TriggerAfterEvent(Hook::RESOLVE_REQUEST, array($request));
+Hook::TriggerEvent(Hook::RESOLVE_REQUEST, array($request));
 
 
 function renderContext()

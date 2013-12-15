@@ -108,4 +108,4 @@ include_once CLASSES_DIR.'/predefined_actions.php';
 ParserFactory::RegisterParser('#\.(markdown|md|mdown|mkd|mkdn|mdwn|mdtxt|mdtext|text)$#i', 'MarkdownParser');
 
 // 启动完成
-Hook::TriggerAfterEvent(Hook::BOOTSTRAP,array());
+Hook::TriggerEvent(Hook::BOOTSTRAP,array());

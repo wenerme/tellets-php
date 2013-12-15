@@ -60,56 +60,26 @@ class Hook
 	 */
 	const BOOTSTRAP = 'bootstrap';
 
-	protected static $afterHook = array();
-	protected static $beforeHook = array();
-
-	/**
-	 * 添加事件之前的挂钩
-	 * @param string $event 事件名
-	 * @param callable $callback 回调函数
-	 */
-	public static function AddBeforeHook($event, $callback)
-	{
-		self::$beforeHook[$event][] = $callback;
-	}
+	protected static $hook = array();
 
 	/**
 	 * 添加事件之后的挂钩
 	 * @param string $event 事件名
 	 * @param callable $callback 回调函数
 	 */
-	public static function AddAfterHook($event, $callback)
+	public static function AddHook($event, $callback)
 	{
-		self::$afterHook[$event][] = $callback;
+		self::$hook[$event][] = $callback;
 	}
 
-	/**
-	 * 触发事件之前的挂钩
-	 * @param string $event
-	 * @param array $args
-	 */
-	public static function TriggerBeforeEvent($event, $args)
+	public static function TriggerEvent($event, $args)
 	{
-		self::TriggerEvent(self::$beforeHook, $event, $args);
-	}
-
-	protected static function TriggerEvent($from, $event, $args)
-	{
-		if (isset($from[$event]))
-			foreach ($from[$event] as $func)
+		if (isset(self::$hook[$event]))
+			foreach (self::$hook[$event] as $func)
 				if(is_callable($func))
 					call_user_func_array($func, $args);
 				else
 					throw new Exception("uncallable $func");
 	}
 
-	/**
-	 * 触发事件之后的挂钩
-	 * @param string $event
-	 * @param array $args
-	 */
-	public static function TriggerAfterEvent($event, $args)
-	{
-		self::TriggerEvent(self::$afterHook, $event, $args);
-	}
 }

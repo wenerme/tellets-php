@@ -44,8 +44,7 @@ function getPostCacheFileName($post)
 
 function getEventResult($event, $args)
 {
-	Hook::TriggerBeforeEvent($event,$args);
-	Hook::TriggerAfterEvent($event,$args);
+	Hook::TriggerEvent($event,$args);
 	return $args;
 }
 

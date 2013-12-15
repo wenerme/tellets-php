@@ -93,11 +93,8 @@ class Tellets
 	public function getPostFileList()
 	{
 		$list = array();
-		Hook::TriggerBeforeEvent(Hook::FIND_POST_LIST, array($list));
 
-		$list = array_merge($list, glob(POSTS_DIR . '/*'));
-
-		Hook::TriggerAfterEvent(Hook::FIND_POST_LIST, array($list));
+		Hook::TriggerEvent(Hook::FIND_POST_LIST, array($list));
 
 		return $list;
 	}
@@ -108,25 +105,8 @@ class Tellets
 		 * @var Post
 		 */
 		$post = NULL;
-		Hook::TriggerBeforeEvent(Hook::RESOLVE_POST, array(&$post, $name));
 
-		// 只有当 $post 没有被解析的时候才进行
-		if (!$post)
-			foreach ($this->postHelper->getPostList() as $try)
-			{
-				switch ($name)
-				{
-					case $try->getMeta('link'):
-					case $try->getMeta(Post::HASH_META):
-					case $try->getMeta(Post::TITLE_META):
-						$post = $try;
-				}
-				//
-				if ($post)
-					break;
-			}
-
-		Hook::TriggerAfterEvent(Hook::RESOLVE_POST, array(&$post, $name));
+		Hook::TriggerEvent(Hook::RESOLVE_POST, array(&$post, $name));
 
 		return $post;
 	}
