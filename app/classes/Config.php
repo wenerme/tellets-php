@@ -44,12 +44,14 @@ class Config extends ArrayObject
     	fwrite($fp,'<?php'.PHP_EOL);
     	
     	// write value
-	    fwrite($fp, $this->serializeItem($this,'$cinfig',$this->description));
+	    fwrite($fp, $this->serializeItem($this,'$config',$this->description));
 
     	// save description
     	fwrite($fp, PHP_EOL.'/*-------------------- DO NOT CHANGE --------------------*/'.PHP_EOL);
-    	
-    	fwrite($fp,sprintf('$description = %s;',var_export(serialize($this->description), true)));
+
+	    $description = var_export(serialize($this->description), true);
+	    //$description = wordwrap($description,60,$description{0}."\n.".$description{0});
+    	fwrite($fp,sprintf('$description = %s;', $description));
     	
     	// over
     	fclose($fp);

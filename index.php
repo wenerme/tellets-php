@@ -8,10 +8,7 @@ if(false === isset($config['password']))
 
 //$dropplets->Update();
 
-$filename = null;
-$posts = $post = null;
-isset($_GET['filename']) && $filename = $_GET['filename'];
-$request = new Request($_GET['filename']);
+$request = new Request(@$_GET['filename']);
 Hook::TriggerEvent(Hook::RESOLVE_REQUEST, array($request));
 
 
@@ -42,14 +39,6 @@ renderContext();
 exit();
 
 FIRST_RUN:
-// 第一粗运行,设置密码
-if(isset($_POST['password']))
-{
-    $tellets->SetUp();
-    // Redirect
-    header("Location: " . $config['blog_url']);
-    exit;
-}
 
 // Get the components of the current url.
 $protocol = @( $_SERVER["HTTPS"] != 'on') ? 'http://' : 'https://';
@@ -70,10 +59,22 @@ if ($protocol === "https://") {
         $url = $protocol . $domain . ":" . $port;
 }
 
+if(strpos($path,'index.php'))
+	$path = dirname($path);
+
 $url .= $path;
 
 // setup config
 $config['blog_url'] = $url;
+
+// 第一次运行,设置密码
+if(isset($_POST['password']))
+{
+	$tellets->SetUp();
+	// Redirect
+	header("Location: " . $config['blog_url']);
+	exit;
+}
 
 // Check if the install directory is writable.
 $is_writable = (TRUE == is_writable(dirname(__FILE__) . '/'));
@@ -91,7 +92,7 @@ $is_writable = (TRUE == is_writable(dirname(__FILE__) . '/'));
 </head>
 
 <body class="dp-install">
-<form method="POST" action="./tellets.php">
+<form method="POST" action="index.php">
     <a class="dp-icon-dropplets" href="http://dropplets.com" target="_blank"></a>
 
     <h2>Install Dropplets</h2>

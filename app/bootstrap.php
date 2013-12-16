@@ -16,8 +16,8 @@ spl_autoload_extensions('.php');
 spl_autoload_register();
 
 // 加载辅助函数
-include_once CLASSES_DIR . "functions.php";
-include_once LIB_DIR . "password.php";
+include_once CLASSES_DIR . "/functions.php";
+include_once LIB_DIR . "/password.php";
 
 // 全局的配置
 $config = new Config(DATA_DIR . '/config.php');
@@ -45,6 +45,7 @@ EOT
 	);
 
 	$config->addDefault('blog_title', 'One world, one wener.');
+	$config->addDefault('blog_url', 'http://wener.me');
 
 	$config->addDefault('meta_description', 'One world, one wener.');
 
