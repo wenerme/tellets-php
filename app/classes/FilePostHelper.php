@@ -119,8 +119,7 @@ class FilePostHelper implements IPostHelper
 		$category = array();
 
 		foreach ($this->postList as $post)
-			foreach ($post->getCategory() as $k => $v)
-				$category[$v] = true;
+			$category[$post->getCategory()] = true;
 
 		$this->category = array_keys($category);
 
@@ -137,7 +136,7 @@ class FilePostHelper implements IPostHelper
 		$item = array();
 
 		foreach ($this->postList as $post)
-			foreach ($post->getTag() as $k => $v)
+			foreach ($post->getTags() as $k => $v)
 				$item[$v] = true;
 
 		$this->tag = array_keys($item);
@@ -166,13 +165,18 @@ class FilePostHelper implements IPostHelper
 	/**
 	 * @return Post[]
 	 */
-	public function getPostListOfTag($tag)
+	public function getPostListOfTags($tags)
 	{
 		$list = array();
+		if(!is_array($tags))
+			$tags = array($tags);
+		$tagCount = count($tags);
 
+		if($tagCount)
 		foreach ($this->postList as $post)
-			if (@in_array($tag, $post->getTag()))
+			if($tagCount == count(array_intersect($tags, $post->getTags())))
 				$list[] = $post;
+
 
 		return $list;
 	}

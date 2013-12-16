@@ -19,10 +19,14 @@ class Post extends ArrayObject
 	
 	public function getAuthor(){return @$this[self::AUTHOR_META];}
 	public function getTitle(){return @$this[self::TITLE_META];}
-    /** @return string[] */
+    /** @return string */
 	public function getCategory(){return @$this[self::CATEGORY_META];}
     /** @return string[] */
-	public function getTag(){return @$this[self::TAG_META];}
+	public function getTags()
+	{
+		$tags = @$this[self::TAG_META];
+		return is_array($tags)?$tags:array($tags);
+	}
     /** @return int the date is unix timestamp. */
 	public function getDate(){return @$this[self::DATE_META];}
 	public function getIntro(){return @$this[self::INTRO_META];}

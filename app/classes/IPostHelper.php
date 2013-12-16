@@ -15,7 +15,7 @@ interface IPostHelper
 	/**
 	 * @return Post[]
 	 */
-    public function getPostListOfTag($tag);
+    public function getPostListOfTags($tags);
 
 	/**
 	 * @param Post $post

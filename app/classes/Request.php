@@ -3,7 +3,7 @@
 
 class Request
 {
-	protected $tag = null;
+	protected $tags = null;
 	protected $category = null;
 	protected $title = null;
 	/**
@@ -44,7 +44,7 @@ class Request
 			if($type['category'] = $matches['type'] === 'category')
 				$this->category = $matches['value'];
 			elseif($type['tag'] = $matches['type'] === 'tag')
-				$this->tag = $matches['value'];
+				$this->tags = $matches['value'];
 			elseif($type['action'] = $matches['type'] === 'action')
 				$this->action = $matches['value'];
 		}
@@ -64,10 +64,10 @@ class Request
 			$this->pageNo = $matches['pageno'];
 
 		// 校正
-		if(is_string($this->tag))
+		if(is_string($this->tags))
 		{
-			$this->tag = preg_split('#[,|]#',$this->tag);
-			$this->tag = array_map('trim',$this->tag);
+			$this->tags = preg_split('#[,|]#',$this->tags);
+			$this->tags = array_map('trim',$this->tags);
 		}
 	}
 
@@ -98,7 +98,7 @@ class Request
 
 	public function getCategory()
 	{return $this->getter(__FUNCTION__);}
-	public function getTag()
+	public function getTags()
 	{return $this->getter(__FUNCTION__);}
 	public function getTitle()
 	{return $this->getter(__FUNCTION__);}
@@ -132,31 +132,36 @@ class Request
 	{
 		if(! $this->hasNextPage()) throw new Exception('no next page');
 		$url = $this->getPageURL();
-		$url .= 'page/'.($this->pageNo + 1);
+		$url = rtrim($url,'/');
+		$url .= '/page/'.($this->pageNo + 1);
 		return $url;
 	}
 	public function getPrevPageURL()
 	{
 		if(! $this->hasPrevPage()) throw new Exception('no prev page');
 		$url = $this->getPageURL();
-		$url .= 'page/'.($this->pageNo + 1);
+		$url = rtrim($url,'/');
+		$url .= '/page/'.($this->pageNo - 1);
 		return $url;
 	}
 
 	public function getPageURL()
 	{
 		$type = $this->type;
-		$url = BLOG_URL;
+		$url = rtrim(BLOG_URL);
 
 		if($type['home'])
 			;
 		elseif($type['single'])
-			$url .= $this->title;
+			$url .= '/'.$this->title;
 		else{
 			foreach(explode('|','category|tag|action') as $v)
 				if($type[$v])
 				{
-					$url .= $v.'/'.$this->$v;
+					if($v === 'tag')
+						$url .= $v.'/'.implode('|',$this->tags);
+					else
+						$url .= $v.'/'.$this->$v;
 					break;
 				}
 		}
@@ -191,7 +196,7 @@ class Request
 			if($this->isHome())
 				$posts = $postHelper->getPostList();
 			elseif($this->isTag())
-				$posts = $postHelper->getPostListOfTag($this->tag);
+				$posts = $postHelper->getPostListOfTags($this->tags);
 			elseif($this->isCategory())
 				$posts = $postHelper->getPostListOfCategory($this->category);
 			// 分页
