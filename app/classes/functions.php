@@ -65,15 +65,15 @@ function getMeta()
 
 function getTagLink($item)
 {
-	return sprintf('%stag/%s',BLOG_URL,$item);
+	return sprintf('%s/tag/%s',rtrim(BLOG_URL,'/'),$item);
 }
 function getPostLink($item)
 {
-	return sprintf('%s%s',BLOG_URL,$item['link']);
+	return sprintf('%s/%s',rtrim(BLOG_URL,'/'),$item['link']);
 }
 function getCategoryLink($item)
 {
-	return sprintf('%scategory/%s',BLOG_URL,$item);
+	return sprintf('%s/category/%s',rtrim(BLOG_URL,'/'),$item);
 }
 
 /**
