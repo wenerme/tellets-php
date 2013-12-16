@@ -3,7 +3,7 @@ use FeedWriter\Atom;
 use FeedWriter\RSS2;
 
 Hook::AddHook(Hook::RESOLVE_REQUEST, 'rssOratomAction');
-
+Hook::AddHook(Hook::RESOLVE_POST, 'basic_post_resolver');
 /**
  * @param Request $request
  */
@@ -66,4 +66,20 @@ function rssOratomAction($request)
 		$feed->printFeed();
 		exit();
 	}
+}
+
+function basic_post_resolver(&$post, $name)
+{
+	if($post)
+		return;
+
+	global $postHelper;
+	$list = $postHelper->getPostList();
+	foreach($list as $p)
+		if($name == $p['link']||$name == $p['hash'])
+		{
+			$post = $p;
+			break;
+		}
+
 }
