@@ -2,7 +2,7 @@
 use FeedWriter\Atom;
 use FeedWriter\RSS2;
 
-Hook::AddAfterHook(Hook::RESOLVE_REQUEST, 'rssOratomAction');
+Hook::AddHook(Hook::RESOLVE_REQUEST, 'rssOratomAction');
 
 /**
  * @param Request $request
