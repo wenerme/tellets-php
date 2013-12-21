@@ -17,10 +17,11 @@
 	<!-- #end intro -->
 	<div class="post-meta">
 
-		<?php if(isset($post['category']) && count($post['category']) > 0):?>
+		<?php if(isset($post['category'])):?>
 			<span class="category-container">Categories:
 				<?php
-				array_walk($post['category'],function(&$item){
+				$categories = is_array($post['category'])?$post['category']: array($post['category']);
+				array_walk($categories,function(&$item){
 					printf('<a class="category" href="%s">%s</a>',getCategoryLink($item),$item);
 				});
 				?>

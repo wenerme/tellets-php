@@ -113,15 +113,19 @@ class FilePostHelper implements IPostHelper
 
 	public function getCategoryList()
 	{
-		if ($this->category === NULL)
+		if ($this->category != NULL)
 			goto DEAL_OVER;
 
-		$category = array();
+		$items = array();
 
 		foreach ($this->postList as $post)
-			$category[$post->getCategory()] = true;
+		{
+			$v = $post->getCategory();
+			if($v)
+				isset($items[$v])? $items[$v] ++: $items[$v] = 1;
+		}
 
-		$this->category = array_keys($category);
+		$this->category = $items;
 
 		DEAL_OVER:
 
@@ -133,13 +137,13 @@ class FilePostHelper implements IPostHelper
 		if ($this->tag != NULL)
 			goto DEAL_OVER;
 
-		$item = array();
+		$items = array();
 
 		foreach ($this->postList as $post)
 			foreach ($post->getTags() as $k => $v)
-				isset($item[$v])? $item[$v] ++: $item[$v] = 1;
+				isset($items[$v])? $items[$v] ++: $items[$v] = 1;
 
-		$this->tag = $item;
+		$this->tag = $items;
 
 		DEAL_OVER:
 

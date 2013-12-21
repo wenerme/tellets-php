@@ -94,7 +94,7 @@ class Tellets
 	{
 		$list = array();
 
-		Hook::TriggerEvent(Hook::FIND_POST_LIST, array($list));
+		Hook::TriggerEvent(Hook::FIND_POST_LIST, array(&$list));
 
 		return $list;
 	}

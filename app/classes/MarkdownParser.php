@@ -38,7 +38,7 @@ class MarkdownParser extends Parser
 		}
 
 		// deal the multi value field
-		isset($meta[Post::CATEGORY_META]) && $meta[Post::CATEGORY_META] = $this->withMultiValue($meta[Post::CATEGORY_META]);
+		//isset($meta[Post::CATEGORY_META]) && $meta[Post::CATEGORY_META] = $this->withMultiValue($meta[Post::CATEGORY_META]);
 		isset($meta[Post::TAG_META]) && $meta[Post::TAG_META] = $this->withMultiValue($meta[Post::TAG_META]);
 
 		// parse date

@@ -6,7 +6,7 @@ require_once __DIR__.'/app/bootstrap.php';
 if(false === isset($config['password']))
     goto FIRST_RUN;
 
-//$dropplets->Update();
+//$tellets->Update();
 
 $request = new Request(@$_GET['filename']);
 Hook::TriggerEvent(Hook::RESOLVE_REQUEST, array($request));

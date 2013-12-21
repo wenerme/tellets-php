@@ -4,6 +4,8 @@ use FeedWriter\RSS2;
 
 Hook::AddHook(Hook::RESOLVE_REQUEST, 'rssOratomAction');
 Hook::AddHook(Hook::RESOLVE_POST, 'basic_post_resolver');
+Hook::AddHook(Hook::FIND_POST_LIST, 'posts_in_post_dir');
+
 /**
  * @param Request $request
  */
@@ -82,4 +84,13 @@ function basic_post_resolver(&$post, $name)
 			break;
 		}
 
+}
+
+function posts_in_post_dir(&$list)
+{
+	// load plugins
+	foreach (glob(POSTS_DIR . "./*") as $filename)
+	{
+		$list[] = $filename;
+	}
 }

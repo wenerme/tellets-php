@@ -2,13 +2,25 @@
 <footer id="footer">
 	<?php
 		$tags = $postHelper->getTagList();
+		$categories = $postHelper->getCategoryList();
 	?>
 	Tags:
 	<ul>
 		<?php
-		foreach($tags as $tag =>$num):
+		foreach($tags as $item =>$num):
 		?>
-		<li><?=$tag."($num)"?></li>
+		<li><?=$item."($num)"?></li>
+		<?php
+		endforeach;
+		?>
+	</ul>
+
+	Category:
+	<ul>
+		<?php
+		foreach($categories as $item =>$num):
+			?>
+			<li><?=$item."($num)"?></li>
 		<?php
 		endforeach;
 		?>
