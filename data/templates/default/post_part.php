@@ -18,16 +18,18 @@
 	<div class="post-meta">
 
 		<?php if(isset($post['category'])):?>
-			<span class="category-container">Categories:
+			<span class="category-container">Category:
 				<?php
+				/*
 				$categories = is_array($post['category'])?$post['category']: array($post['category']);
 				array_walk($categories,function(&$item){
 					printf('<a class="category" href="%s">%s</a>',getCategoryLink($item),$item);
-				});
+				});*/
+				printf('<a class="category" href="%s">%s</a>',getCategoryLink($post['category']),$post['category']);
 				?>
 		</span>
 		<?php endif;?>
-		<!-- end categories -->
+		<!-- end category -->
 
 		<?php if(isset($post['tag']) && count($post['tag']) > 0):?>
 		<span class="tag-container">Tags:
