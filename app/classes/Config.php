@@ -2,6 +2,10 @@
 
 class Config extends ArrayObject 
 {
+	const NS_CONFIG = 'config';
+	const NS_PLUGINS = 'plugins';
+	const NS_TEMPLATES = 'templates';
+
     private $changed = false;
     private $filename = '';
     private $description = array();
@@ -12,10 +16,15 @@ class Config extends ArrayObject
 
         $config = array();
         $description = array();
+	    $plugins = array();
+	    $templates = array();
         
         if(file_exists($filename))
         	include $filename;
-		
+
+	    $config[self::NS_PLUGINS] = $plugins;
+	    $config[self::NS_TEMPLATES] = $templates;
+
         parent::__construct($config);
         // 如果被设置了，则进行反序列化
         !!$description && $this->description = unserialize($description);
@@ -42,9 +51,19 @@ class Config extends ArrayObject
     	$fp = fopen($filename,'wb');
     	
     	fwrite($fp,'<?php'.PHP_EOL);
-    	
+
+	    $plugins = $this[self::NS_PLUGINS];
+	    $templates = $this[self::NS_TEMPLATES];
+	    unset($this[self::NS_PLUGINS]);
+	    unset($this[self::NS_TEMPLATES]);
     	// write value
 	    fwrite($fp, $this->serializeItem($this,'$config',$this->description));
+	    fwrite($fp, $this->serializeItem($plugins,'$plugins',@$this->description[self::NS_PLUGINS]));
+	    fwrite($fp, $this->serializeItem($templates,'$templates',@$this->description[self::NS_TEMPLATES]));
+
+	    // restore
+	    $this[self::NS_PLUGINS] = $plugins;
+	    $this[self::NS_TEMPLATES] = $templates;
 
     	// save description
     	fwrite($fp, PHP_EOL.'/*-------------------- DO NOT CHANGE --------------------*/'.PHP_EOL);
@@ -65,11 +84,20 @@ class Config extends ArrayObject
 			$p = sprintf('%s[%s]',$prefix, var_export($k,true));
 			$desc = @$description[$k];
 
+			if($desc && is_string($desc))
+			{
+				// 判断注释是否有多行
+				if(strstr($desc,"\n"))
+					$desc = "/*\n$desc\n*/".PHP_EOL;
+				else
+					$desc = "/* $desc */".PHP_EOL;
+			}
+
 			if(is_array($v))
 			{
 				if(!is_array($desc))
 				{
-					$result .= PHP_EOL."/* $desc */";
+					$result .= $desc;
 					$desc = array();
 				}
 				$result .= $this->serializeItem($v, $p, $desc);
@@ -79,7 +107,7 @@ class Config extends ArrayObject
 			$content = PHP_EOL;
 
 			if($desc)
-				$content .= "/* $desc */".PHP_EOL;
+				$content .= $desc;
 
 			$content .= sprintf('%s = %s;'.PHP_EOL
 				, $p, var_export($v, true));
@@ -91,15 +119,19 @@ class Config extends ArrayObject
     }
     public function isChanged(){return $this->changed;}
 
-    public function addDefault($name, $value, $description = '')
+    public function addDefault($name, $value, $description = '', $ns = self::NS_CONFIG)
     {
-        if(isset($this[$name]))
+	    $target = $this;
+	    if($ns !== self::NS_CONFIG)
+		    $target = &$this[$ns];
+
+        if(isset($target[$name]))
             goto ALREADY_SET;
 
-        $this[$name] = $value;
+	    $target[$name] = $value;
         // 仅当 描述有效时才保存
         if(!!$description)
-            $this->description[$name] = $description;
+            $this->description[$ns][$name] = $description;
 
         ALREADY_SET:
         return $this;

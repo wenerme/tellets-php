@@ -172,6 +172,27 @@ addPost的时候继续抛弃
 http://econsultancy.com/cn/blog/62844-24-beautifully-designed-web-dashboards-that-data-geeks-will-love
 http://stackoverflow.com/questions/13839920/open-source-library-framework-for-building-dashboard-bar-line-pie-etc
 
+关于是否实现管理,很多操作都不一定需要管理的, tellets 的定位是 基于markup,
+使用github作为源的博客系统,不需要经常上网站进行管理,管理方法就类似于写文章一样,
+但是文章操作过一次后,就不方便改变,也就是一次操作,包含了一次更新,之后便不能再进行
+此操作.
+
+remote admin
+
+hook: action/update,更新后保存日志到服务器,然后直接跳转到主页
+remote setting: xxx.ini,使用file_get_contents来获取,
+所以把链接作为github的raw链接即可.
+
+主要进行的管理操作: 更新,更换模板(以后考虑)
+
+ini.
+
+```
+[config]
+last_update_time=xxxxx ; 最后一次跟新时间,获取的时候会和
+```
+
+
 * X 尚未实现 rss atom
 * 实现一个简单的 plugin，posts_dir_recursive_import 递归的导入posts目录下的所有文章，默认是只导入 posts目录的
 * X 尚未实现 action
@@ -181,7 +202,35 @@ http://stackoverflow.com/questions/13839920/open-source-library-framework-for-bu
 * X 尚未实现文章导航 上一篇文章和下一篇文章
 * 添加 Tag 和 Category 列表到 footer
 * 实现 github_repo
-* 修改 config,以支持数组类型的配置选项
+* X 修改 config,以支持数组类型的配置选项
+* X 实现 tags,可以搜索多个标签
+* X Config 增加 ns, PLUGINS,TEMPLATES
+更改后的访问方式:
+```
+$config['name'] 将访问到 CONFIG
+$config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
+```
+* X config.php 保存时,增加 $plugins 和 $templates
+
+特点
+----
+
+* 文章是基于 MarkUp的,易于编写
+* 使用github托管文章,管理和编辑方便
+* 模板系统简单,易于编写
+* 无数据库,使用起来轻松方便
+* 0 配置
+* 简单的Hook系统,编写插件得心应手
+
+模板上下文
+---------
+
+$request, $posts, $post, $tellets, $postHelper, $config
+
+Hooks
+-----
+
+
 
 需求
 ----
@@ -205,10 +254,11 @@ password_compat
 
 配置git_repo
 
-plugin.git_repos
+plugins.git_repos
 	.enable = true
-	.repos 
-		WenerLove/tellets,WenerLove/note
+	.repos
+		WenerLove/tellets
+		WenerLove/note:master/path/file.md;auth=name:password
 	.ignore // 可以考虑忽略匹配的文件名，不过只要state不为 published都不会显示，但是也少了解析这一步
 		/^readme/i
 		
