@@ -159,8 +159,8 @@ class FilePostHelper implements IPostHelper
 
 		foreach ($this->postList as $post)
 		{
-			$categories = $post->getCategory();
-			if (is_array($categories) && in_array($category, $categories))
+			$v = $post->getCategory();
+			if($category === $v)
 				$list[] = $post;
 		}
 		return $list;
