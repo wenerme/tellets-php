@@ -52,7 +52,8 @@ Getting Started
 Tellets 的由来
 --------------
 
-最开始我是从[dropplets] [fork](https://github.com/WenerLove/dropplets)的,
+最开始我是从[dropplets](https://github.com/circa75/dropplets)
+ [fork](https://github.com/WenerLove/dropplets)的,
 很喜欢 dropplets 的简单,但是很多达不到我想要的,原项目也不便于修改,
 所以我就将根据从 dropplets 受到的启发,从写成了 tellets.
 
