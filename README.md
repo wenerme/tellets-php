@@ -3,79 +3,101 @@
 <!-- tag: Project -->
 <!-- date: 2013/12/7 -->
 <!-- state: published -->
+<!-- link: tellets -->
 
-Dropplets
-=========
+Tellets
+========
 
-Dropplets is a minimalist **Markdown** blogging platform focused on delivering just what you need in a blogging solution, but absolutely nothing you don't. When it comes to basic blogging, all you really want to do is write & publish which is where Dropplets excels. It's databaseless, so it installs on any server in just about 30 seconds. 
+Tellets 是一个基于Markup的博客平台.
 
-## What's Markdown?
-Markdown is a text formatting syntax inspired on plain text email. It is extremely simple, memorizable and visually lightweight on artifacts so as not to hinder reading.
+主要特性
+-------
 
-> The idea is that a Markdown-formatted document should be publishable as-is, as plain text, without looking like it's been marked up with tags or formatting instructions.
+* 文章是基于 MarkUp,易于编写
+* 可使用github托管文章,管理和编辑方便
+* 模板系统简单,易于修改和实现自己的主题
+* 无数据库,使用起来轻松方便
+* 0 配置
+* 简单的Hook系统,编写插件得心应手
+* 无繁杂的管理系统,你只需要写就可以了
 
-## Getting Started
-- [Installation](#installation)
-- [Writing Posts](#writing-posts)
-- [Publishing Posts](#publishing-posts)
-- [Editing Posts](#editing-posts)
-- [Changing Settings](#changing-settings)
-- [Changing Templates](#changing-templates)
-- [Updating Dropplets](#updating-dropplets)
-- [License](#license)
+<!-- more -->
 
-## Installation
-Dropplets is compatible with most server configurations and can be typically installed in under a minute using the few step-by-step instructions below:
+Getting Started
+---------------
 
-1. Download the latest **release** and then extract the downloaded zip file.
-3. Upload the entire contents of the extracted zip file to your web server wherever you want Dropplets to be installed. 
-4. Pull up your site in any modern web browser (e.g. if you uploaded Dropplets to **yoursite.com**, load **yoursite.com** in your browser to finish the installation), then create and confirm your password.
+- [安装](#installation)
+- [撰写文章](#writing-posts)
+- [改变设置](#changing-settings)
+- [更换模板](#changing-templates)
+- [更新 tellets](#updating-dropplets)
+- [MIT 许可](#license)
 
-## Writing Posts
-With Dropplets, you write your posts offline (using the text or Markdown editor of your choice) in Markdown format. Here's a handy [syntax guide](https://github.com/circa75/dropplets/wiki/Markdown-Syntax-Guide) if you need a little help with your Markdown skills. All posts for Dropplets **MUST** be composed using the following format:
+默认安装的插件
+-------------
 
-    # Your Post Title
-    - Post Author Name (e.g. "Dropplets")
-    - Post Author Twitter Handle (e.g. "dropplets")
-    - Publish Date in YYYY/MM/DD Format (e.g. "2013/04/28")
-    - Post Category (e.g. "Random Thoughts")
-    - Post Status (e.g. "published" or "draft")
+* github_repo 将文章托管到github
+* remote_admin 通过一个网络文件对博客进行配置管理
 
-    Your post text starts here. 
-    
-All posts must also be saved with the **.md** file extension. For instance, if your post title is **My First Blog Post**, your post file should look like this:
+Tellets 的由来
+--------------
 
-    my-first-blog-post.md
+最开始我是从[dropplets] [fork](https://github.com/WenerLove/dropplets)的,
+很喜欢 dropplets 的简单,但是很多达不到我想要的,原项目也不便于修改,
+所以我就将根据从 dropplets 受到的启发,从写成了 tellets.
 
-Some templates include the ability to add a post image or thumbnail along with your post in which should match your post file name like this:
+Tellets 这个名字中的 lets 是继承自 dropplets.
+而取名 tellets 是意为 let's tell.
 
-    my-first-blog-post.jpg
+安装 {#installation}
+-----
 
-Post file names are used to structure post permalinks on your blog. So, a post file saved as **my-first-blog-post.md** will result in **yoursite.com/my-first-blog-post** as the post permalink.
+下载最新的 zip 包,解压到你想安装的地方.访问解压的位置,设置密码.ok,一切大功告成.
 
-## Publishing Posts
-After you've finished writing your post offline, you can then publish your post using the Dropplets toolbar:
+撰写文章 {#writing-posts}
+-------
 
-1. Login to your Dropplets installation using the password you created during the installation and setup process.
-2. Click the Dropplet in your toolbar to select, upload and publish your post.
+在撰写文章之前,请看以下这个 [README 的前 几行](https://github.com/WenerLove/dropplets/edit/master/README.md).
+这个 README 其实就是一篇博文,你会注意到文章开头的 HTML 注释,
+例如 `<!-- title: Tellets README -->`.我管这个叫做 `元信息`,主要用于告诉 tellets 这是什么.
 
-## Editing Posts
-Re-upload your edited post file using the steps above. Doing this will automatically overwrite the existing post and publish your new edits. To delete a post, change the **Post Status** at the top of your post file to **draft**.
+发布一篇博文,必要的字段是 `<!-- state: published -->`,
+只有状态是 `published` 的博文才会在 tellets 上显示.
 
-## Changing Settings
-To change your blog settings, click the gear icon in the Dropplets toolbar. This will load the settings panel where you will be able to change all of your blog settings including your password.
+同时一篇博文你或许还希望有 title, date,分别表示文章标题和发布时间.
+接下来的内容就自己发挥了.
 
-## Changing Templates
-To change your blog template, click the star icon in the Dropplets toolbar. This will load the templates panel where you will be able to browse and change your blog template as well as purchase new premium templates.
+对了, 你可能还会注意到 `<!-- more -->`, 如果你使用过 WP,那你并不会陌生.
+在 more 之上的内容为该博文的简介,在文章列表中只会显示该简介.
 
-## Updating Dropplets
-Eventually, we will be implementing auto-updates for the Dropplets platform, but until then, just replace everything but your **posts** directory and **config.php** when we release a new version of Dropplets.
+改变设置 {#changing-settings}
+-------
 
-## License
-Copyright (c) 2013 Circa75 Media, LLC
+Tellets 的设置会保存在 `data/config.php` 中,
+该文件由第一次运行时自动生成, 生成后的配置文件中有对配置项的注释
+,你可以很容易的理解并且修改.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+更换模板 {#changing-templates}
+----------
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+将模板解压到 `data/templates` 中,在设置中 更改 `$templates['active'] = /*模板目录*/`.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+更新 tellets {#updating-dropplets}
+------------
+
+现在唯一的方法就是覆盖更新了.
+
+许可 {#license}
+----
+
+因为 Tellets 是我完全从写的,直接选择的 MIT 许可, 与 原生的 dropplets 不同.
+
+已定义的 元信息
+--------------
+
+* title
+* date
+* category
+* tag Array
+* link string 作为生成链接的依据,默认的链接生成是从 title生成的
+* ext string 该文章的扩展名

@@ -212,6 +212,7 @@ $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 ```
 * X config.php 保存时,增加 $plugins 和 $templates
 * 添加 基本的meta,例如 generateby
+* 添加 ext 元字段到Post,用于记录原来的内容格式.
 
 特点
 ----
