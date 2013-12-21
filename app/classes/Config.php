@@ -88,9 +88,10 @@ class Config extends ArrayObject
 			{
 				// 判断注释是否有多行
 				if(strstr($desc,"\n"))
-					$desc = "/*\n$desc\n*/".PHP_EOL;
+					$desc = "/*\n$desc\n*/";
 				else
-					$desc = "/* $desc */".PHP_EOL;
+					$desc = "/* $desc */";
+				$desc = PHP_EOL.$desc.PHP_EOL;
 			}
 
 			if(is_array($v))

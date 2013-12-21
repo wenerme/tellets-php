@@ -19,6 +19,12 @@ spl_autoload_register();
 include_once CLASSES_DIR . "/functions.php";
 include_once LIB_DIR . "/password.php";
 
+// load plugins
+foreach (glob(APP_DIR . "./plugins/*/main.php") as $filename)
+{
+	include $filename;
+}
+
 // 全局的配置
 $config = new Config(DATA_DIR . '/config.php');
 
@@ -65,15 +71,15 @@ EOT
 );
 
 	$config->addDefault('extra_links', array(
-		'github' => 'https://github.com/WenerLove/tellets',
+		'GitHub' => 'https://github.com/WenerLove/tellets',
 		'Get Start' => 'https://github.com/WenerLove/tellets',
-	),<<<EOT
-一般会显示在导航,用于指向其他页面的连接,需要模板支持显示.
-EOT
-);
+	),'额外链接,显示需要模板支持.', Config::NS_TEMPLATES);
+
 	$config->addDefault('feed_max_items',10,'Feed 里显示文章的数量');
 }
 
+// 配置完成
+Hook::TriggerEvent(Hook::CONFIG_COMPLETE,array($config));
 // 使用配置来设置环境
 {
 	date_default_timezone_set($config['timezone']);
@@ -98,14 +104,9 @@ $tellets = new Tellets();
 $tellets->config = & $config;
 $tellets->postHelper = & $postHelper;
 
-
-// load plugins
-foreach (glob(APP_DIR . "./plugins/*/main.php") as $filename)
-{
-	include $filename;
-}
-
-include_once CLASSES_DIR.'/predefined_actions.php';
+// 添加预定义动作
+include_once CLASSES_DIR.'/predefined_hooks.php';
+// 添加预定义解析器
 ParserFactory::RegisterParser('#\.(markdown|md|mdown|mkd|mkdn|mdwn|mdtxt|mdtext|text)$#i', 'MarkdownParser');
 
 // 启动完成
