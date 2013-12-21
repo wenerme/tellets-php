@@ -73,9 +73,7 @@ class Request
 
 	public function getPageCount()
 	{
-		global $postHelper;
-
-		return ceil($postHelper->getPostCount() / $this->getPostPrePage());
+		return ceil(count($this->getPosts()) / $this->getPostPrePage());
 	}
 
 	public function getPostPrePage()
