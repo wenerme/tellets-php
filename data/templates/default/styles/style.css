@@ -23,6 +23,12 @@ body,html
 	height: 100%;
 }
 
+.container
+{
+	max-width: 800px;
+	margin: 0 auto;
+}
+
 #header a:hover,
 .post-header h1 a:hover
 {
@@ -75,11 +81,6 @@ body,html
 	text-shadow: rgba(58, 184, 230, 0.6) 0 0 15px;
 }
 
-#content
-{
-	max-width: 800px;
-	margin: 0 auto;
-}
 .post
 {
 	padding: 20px 0;
@@ -147,4 +148,41 @@ body,html
 .post-content img
 {
 	max-width: 100%;
+}
+
+ul.footer-column, ul.footer-column ul
+{
+	list-style: none;
+	margin: 0;
+	padding: 0 20px;
+}
+
+ul.footer-column
+{
+	margin: 30px 0 0;
+	border-top: 10px solid #eee;
+	padding-top: 10px;
+}
+ul.footer-column > li
+{
+	width: 30%;
+	float: left;
+	padding-bottom: 20px;
+}
+
+ul.footer-column  > li.main-column
+{
+	width: 40%;
+}
+
+ul.footer-column ul li
+{
+	padding: .2em 2em;
+}
+ul.footer-column ul li:first-child
+{
+	font-weight: bold;
+	font-size: 1.4em;
+	border-bottom: 2px solid #E5E5E5;
+	padding: 10px 1em;
 }

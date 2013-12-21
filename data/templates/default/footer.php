@@ -1,29 +1,41 @@
-
-<footer id="footer">
+<footer id="footer" class="container">
 	<?php
-		$tags = $postHelper->getTagList();
-		$categories = $postHelper->getCategoryList();
+	$tags = $postHelper->getTagList();
+	$categories = $postHelper->getCategoryList();
 	?>
-	Tags:
-	<ul>
-		<?php
-		foreach($tags as $item =>$num):
-		?>
-		<li><?=$item."($num)"?></li>
-		<?php
-		endforeach;
-		?>
-	</ul>
 
-	Category:
-	<ul>
-		<?php
-		foreach($categories as $item =>$num):
-			?>
-			<li><?=$item."($num)"?></li>
-		<?php
-		endforeach;
-		?>
+	<ul class="footer-column">
+		<li class="main-column">
+			<div>wener is good</div>
+			<div>desc</div>
+			<div>sub</div>
+			<div>copyrigt</div>
+		</li>
+		<li>
+			<ul>
+				<li>Tags</li>
+				<?php foreach ($tags as $item => $num):?>
+					<li><a href="<?=getTagLink($item) ?>">
+							<?= $item?>
+							<small>(<?=$num?>)</small>
+						</a>
+					</li>
+				<?php endforeach;?>
+			</ul>
+		</li>
+
+		<li>
+			<ul>
+				<li>Categories</li>
+				<?php foreach ($categories as $item => $num):?>
+					<li><a href="<?=getCategoryLink($item) ?>">
+							<?= $item?>
+							<small>(<?=$num?>)</small>
+						</a>
+					</li>
+				<?php endforeach;?>
+			</ul>
+		</li>
 	</ul>
 </footer>
 <!-- #end-header -->
