@@ -3,7 +3,7 @@
 <?php include __DIR__.'/header.php'?>
 
 <div id="main-wrap">
-	<div id="content">
+	<div id="content" class="container">
 		<?php
 			include __DIR__.'./post_part.php';
 		?>

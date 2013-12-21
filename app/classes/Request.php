@@ -148,12 +148,12 @@ class Request
 	public function getPageURL()
 	{
 		$type = $this->type;
-		$url = rtrim(BLOG_URL);
+		$url = rtrim(BLOG_URL).'/';
 
 		if($type['home'])
 			;
 		elseif($type['single'])
-			$url .= '/'.$this->title;
+			$url .= $this->title;
 		else{
 			foreach(explode('|','category|tag|action') as $v)
 				if($type[$v])

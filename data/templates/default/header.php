@@ -9,6 +9,8 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<link href='<?=TEMPLATE_URL ?>/styles/normalize.css' rel='stylesheet'>
 	<link href='<?=TEMPLATE_URL ?>/styles/style.css' rel='stylesheet'>
+
+	<?php getHeader();?>
 </head>
 
 <body>
@@ -22,8 +24,8 @@
 
 		<nav id="site-nav">
 			<?php
-			if(is_array($config['extra_links']))
-				foreach($config['extra_links'] as $text => $url)
+			if(is_array($config['templates']['extra_links']))
+				foreach($config['templates']['extra_links'] as $text => $url)
 					echo "<a href='$url'>$text</a>";
 			?>
 		</nav>
