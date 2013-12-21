@@ -37,7 +37,7 @@ abstract class Parser
 	 * @return Post
 	 */
 	public function parseFile($filename)
-	{ return $this->parseContent(file_get_contents($filename));}
+	{ return $this->parseContent(remove_byte_order_mark(file_get_contents($filename)));}
 
 	/**
 	 * Convert the string to array.

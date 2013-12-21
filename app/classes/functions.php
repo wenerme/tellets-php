@@ -92,3 +92,22 @@ function getSubclasses($parentClassName)
 	}
 	return $classes;
 }
+
+/**
+ * see this http://en.wikipedia.org/wiki/Byte_order_mark
+ * @param string $str
+ */
+function remove_byte_order_mark($str)
+{
+	// UTF-8	EF BB BF
+	// UTF-16 (BE)	FE FF
+	// UTF-16 (LE)	FF FE
+	// UTF-32 (BE)	00 00 FE FF
+	// UTF-32 (LE)	FF FE 00 00
+	// GB-18030[t 1]	84 31 95 33
+	return preg_replace('~^(?:
+	(?:\xEF\xBB\xBF) # UTF8
+	|(?:\xFE\xFE) # UTF-16 (BE)
+	|(?:\xFF\xFE) # UTF-16 (LE)
+	)~x','',$str);
+}
