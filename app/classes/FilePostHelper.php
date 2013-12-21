@@ -130,16 +130,16 @@ class FilePostHelper implements IPostHelper
 
 	public function getTagList()
 	{
-		if ($this->tag === NULL)
+		if ($this->tag != NULL)
 			goto DEAL_OVER;
 
 		$item = array();
 
 		foreach ($this->postList as $post)
 			foreach ($post->getTags() as $k => $v)
-				$item[$v] = true;
+				isset($item[$v])? $item[$v] ++: $item[$v] = 1;
 
-		$this->tag = array_keys($item);
+		$this->tag = $item;
 
 		DEAL_OVER:
 

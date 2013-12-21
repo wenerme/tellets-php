@@ -24,7 +24,7 @@ class Post extends ArrayObject
     /** @return string[] */
 	public function getTags()
 	{
-		$tags = @$this[self::TAG_META];
+		$tags = isset($this[self::TAG_META])? $this[self::TAG_META]: array();
 		return is_array($tags)?$tags:array($tags);
 	}
     /** @return int the date is unix timestamp. */

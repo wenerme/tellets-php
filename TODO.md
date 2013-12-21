@@ -211,6 +211,7 @@ $config['name'] 将访问到 CONFIG
 $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 ```
 * X config.php 保存时,增加 $plugins 和 $templates
+* 添加 基本的meta,例如 generateby
 
 特点
 ----
@@ -230,7 +231,15 @@ $request, $posts, $post, $tellets, $postHelper, $config
 Hooks
 -----
 
+标准的 post meta
+------------------
 
+* title
+* date
+* category
+* tag Array
+* link string 作为生成链接的依据,默认的链接生成是从 title生成的
+* ext string 该文章的扩展名
 
 需求
 ----
