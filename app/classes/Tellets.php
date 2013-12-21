@@ -82,7 +82,7 @@ class Tellets
 		$_SERVER['user'] = NULL;
 	}
 
-	public function isLogin()
+	public function isLoggedIn()
 	{
 		return !!$_SERVER['user'];
 	}

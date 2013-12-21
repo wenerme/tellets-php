@@ -6,10 +6,11 @@
 
 	<ul class="footer-column">
 		<li class="main-column">
-			<div>wener is good</div>
-			<div>desc</div>
-			<div>sub</div>
-			<div>copyrigt</div>
+			<h2><a href="<?=BLOG_URL?>"><?=$config['intro_title']?></a></h2>
+			<div><?=$config['intro_text']?></div>
+			<hr/>
+			<div>feed</div>
+			<div><?=$config['author']?> &copy; <?=strftime("%Y")?></div>
 		</li>
 		<li>
 			<ul>

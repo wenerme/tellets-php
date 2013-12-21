@@ -30,7 +30,7 @@ function renderContext()
 	{
 		include TEMPLATE_DIR.'/post.php';
 	}else{
-		include TEMPLATE_DIR.'/404.php';
+		include TEMPLATE_DIR.'/message.php';
 	}
 }
 

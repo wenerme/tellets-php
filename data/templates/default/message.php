@@ -2,7 +2,7 @@
 <?php include __DIR__.'/header.php'?>
 
 <div id="main-wrap">
-	<div id="content">
+	<div id="content" class="container">
 		<h1>404 Not Found.</h1>
 	</div>
 	<!-- #end-content -->
