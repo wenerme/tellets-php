@@ -26,17 +26,17 @@ class Config extends ArrayObject
         $config = array();
         $description = array();
 	    $plugins = array();
-	    $templates = array();
+	    $template = array();
         
         if(file_exists($filename))
         	include $filename;
 
 	    $config[self::NS_PLUGINS] = $plugins;
-	    $config[self::NS_TEMPLATE] = $templates;
+	    $config[self::NS_TEMPLATE] = $template;
 
         parent::__construct($config);
         // 如果被设置了，则进行反序列化
-        !!$description && $this->description = unserialize($description);
+        !!$description && $this->description = json_decode(base64_decode($description));
     }
 
 
@@ -62,22 +62,22 @@ class Config extends ArrayObject
     	fwrite($fp,'<?php'.PHP_EOL);
 
 	    $plugins = $this[self::NS_PLUGINS];
-	    $templates = $this[self::NS_TEMPLATE];
+	    $template = $this[self::NS_TEMPLATE];
 	    unset($this[self::NS_PLUGINS]);
 	    unset($this[self::NS_TEMPLATE]);
     	// write value
 	    fwrite($fp, $this->serializeItem($this,'$config',@$this->description[self::NS_CONFIG]));
 	    fwrite($fp, $this->serializeItem($plugins,'$plugins',@$this->description[self::NS_PLUGINS]));
-	    fwrite($fp, $this->serializeItem($templates,'$templates',@$this->description[self::NS_TEMPLATE]));
+	    fwrite($fp, $this->serializeItem($template,'$template',@$this->description[self::NS_TEMPLATE]));
 
 	    // restore
 	    $this[self::NS_PLUGINS] = $plugins;
-	    $this[self::NS_TEMPLATE] = $templates;
+	    $this[self::NS_TEMPLATE] = $template;
 
     	// save description
     	fwrite($fp, PHP_EOL.'/*-------------------- DO NOT CHANGE --------------------*/'.PHP_EOL);
 
-	    $description = var_export(serialize($this->description), true);
+	    $description = var_export(base64_encode(json_encode($this->description)), true);
 	    //$description = wordwrap($description,60,$description{0}."\n.".$description{0});
     	fwrite($fp,sprintf('$description = %s;', $description));
     	
