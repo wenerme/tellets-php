@@ -96,9 +96,9 @@ EOT
 
 	// 模板评论相关
 	$config->addDefault('comment_type','disqus',<<<EOT
-启用的社交插件,如果为 null|false则不启用
+启用的社交评论插件,如果为 null|false则不启用
 可能的值为 disqus 或 duoshuo 等,在默认模板里面支持这两个
-设置该值后需要设置 comments_user
+设置该值后需要设置 comment_user
 注意: 评论插件的显示需要模板支持.
 EOT
 	,Config::NS_TEMPLATES);

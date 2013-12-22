@@ -10,7 +10,11 @@
 			<div><?=$config['intro_text']?></div>
 			<hr/>
 			<div>feed</div>
-			<div><?=$config['author']?> &copy; <?=strftime("%Y")?></div>
+			<div>&copy; <?=strftime("%Y")?> <?=$config['author']?></div>
+			<div>
+				Powered by <a href="https://github.com/WenerLove/tellets">tellets</a>
+				theme by <a href="http://blog.wener.me">wener</a>
+			</div>
 		</li>
 		<li>
 			<ul>

@@ -57,7 +57,7 @@ class Config extends ArrayObject
 	    unset($this[self::NS_PLUGINS]);
 	    unset($this[self::NS_TEMPLATES]);
     	// write value
-	    fwrite($fp, $this->serializeItem($this,'$config',$this->description));
+	    fwrite($fp, $this->serializeItem($this,'$config',@$this->description[self::NS_CONFIG]));
 	    fwrite($fp, $this->serializeItem($plugins,'$plugins',@$this->description[self::NS_PLUGINS]));
 	    fwrite($fp, $this->serializeItem($templates,'$templates',@$this->description[self::NS_TEMPLATES]));
 
@@ -130,6 +130,8 @@ class Config extends ArrayObject
             goto ALREADY_SET;
 
 	    $target[$name] = $value;
+	    // 当 target 不为 $this 时,不会触发offsetSet里的改变设置
+	    $this->changed = true;
         // 仅当 描述有效时才保存
         if(!!$description)
             $this->description[$ns][$name] = $description;
