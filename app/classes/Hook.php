@@ -62,7 +62,7 @@ class Hook
 	protected static $hook = array();
 
 	/**
-	 * 添加事件之后的挂钩
+	 * 添加事件挂钩
 	 * @param string $event 事件名
 	 * @param callable $callback 回调函数
 	 */
@@ -71,7 +71,20 @@ class Hook
 		self::$hook[$event][] = $callback;
 	}
 
-	public static function TriggerEvent($event, $args)
+	/**
+	 * 移除挂钩
+	 * @param $event
+	 * @param $callback
+	 */
+	public static function RemoveHook($event, $callback)
+	{
+		if(! is_array(self::$hook[$event]))
+			return;
+		$i = array_search($callback, self::$hook[$event]);
+		if($i !== false )unset(self::$hook[$event][$i]);
+	}
+
+	public static function TriggerEvent($event, $args = array())
 	{
 		if (isset(self::$hook[$event]))
 			foreach (self::$hook[$event] as $func)

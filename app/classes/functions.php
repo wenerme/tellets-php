@@ -41,12 +41,12 @@ function get_post_cache_file_name($post)
 
 function get_header()
 {
-	Hook::TriggerEvent(Hook::GENERATE_HEADER,array());
+	Hook::TriggerEvent(Hook::GENERATE_HEADER);
 }
 
 function get_footer()
 {
-	Hook::TriggerEvent(Hook::GENERATE_FOOTER,array());
+	Hook::TriggerEvent(Hook::GENERATE_FOOTER);
 }
 
 function get_tag_link($item)
