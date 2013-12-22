@@ -162,6 +162,7 @@ ul.footer-column
 	margin: 30px 0 0;
 	border-top: 10px solid #eee;
 	padding-top: 10px;
+	overflow: hidden;
 }
 ul.footer-column > li
 {

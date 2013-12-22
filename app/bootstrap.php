@@ -93,6 +93,22 @@ EOT
 	),'额外链接,显示需要模板支持.', Config::NS_TEMPLATES);
 
 	$config->addDefault('feed_max_items',10,'Feed 里显示文章的数量');
+
+	// 模板评论相关
+	$config->addDefault('comment_type','disqus',<<<EOT
+启用的社交插件,如果为 null|false则不启用
+可能的值为 disqus 或 duoshuo 等,在默认模板里面支持这两个
+设置该值后需要设置 comments_user
+注意: 评论插件的显示需要模板支持.
+EOT
+	,Config::NS_TEMPLATES);
+
+	$config->addDefault('comment_user','wener',<<<EOT
+当设置 with_comments 启用评论插件后
+使用该值来设置绑定的用户
+EOT
+	,Config::NS_TEMPLATES);
+
 }
 
 // 配置完成
