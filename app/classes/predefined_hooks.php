@@ -92,7 +92,7 @@ function basic_post_resolver(&$post, $name)
 function posts_in_post_dir(&$list)
 {
 	// load plugins
-	foreach (glob(POSTS_DIR . "./*") as $filename)
+	foreach (glob(POSTS_DIR . '/*') as $filename)
 	{
 		$list[] = $filename;
 	}
