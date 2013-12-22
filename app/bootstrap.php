@@ -13,7 +13,24 @@ define('CLASSES_DIR', APP_DIR.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR)
 set_include_path(get_include_path().PATH_SEPARATOR.LIB_DIR);
 set_include_path(get_include_path().PATH_SEPARATOR.CLASSES_DIR);
 spl_autoload_extensions('.php');
-spl_autoload_register();
+spl_autoload_register(function($name)
+{
+	spl_autoload($name);
+	if(class_exists($name))
+		return;
+	$paths = explode(PATH_SEPARATOR, get_include_path());
+	foreach($paths as $path)
+	{
+		$fn = $path.DIRECTORY_SEPARATOR.$name.'.php';
+		if(file_exists($fn))
+		{
+			//echo "Found $name at $fn\n";
+			include_once $fn;
+			return;
+		}
+	}
+	throw new Exception("Load $name failed.");
+});
 
 // 加载辅助函数
 include_once CLASSES_DIR . "/functions.php";
