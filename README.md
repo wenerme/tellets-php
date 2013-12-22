@@ -60,6 +60,23 @@ Tellets 的由来
 Tellets 这个名字中的 lets 是继承自 dropplets.
 而取名 tellets 是意为 let's tell.
 
+搭建需求
+-------
+
+PHP
+: > 5.3
+
+short-open-tag
+: 在模板中为了简洁, 使用了很多 PHP 代码开始标志的缩写方式,
+在 PHP < 5.4 的时候 最好设置 [short-open-tag](http://www.php.net/manual/zh/ini.core.php#ini.short-open-tag),
+我有尝试在运行时使用 ini_set 设置,但是似乎没有成功.
+
+Nginx 设置
+:
+
+Apache
+: 需要有 Rewrite 模块, 这个基本都有的.
+
 安装
 -----
 

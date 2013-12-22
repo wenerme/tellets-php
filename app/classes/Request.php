@@ -73,7 +73,7 @@ class Request
 
 	public function getPageCount()
 	{
-		return ceil(count($this->getPosts()) / $this->getPostPrePage());
+		return ceil(count($this->getAllPosts()) / $this->getPostPrePage());
 	}
 
 	public function getPostPrePage()
@@ -186,6 +186,18 @@ class Request
 	 */
 	public function getPosts()
 	{
+		// 分页
+		$start = ($this->getPageNo() - 1) * $this->getPostPrePage();
+		$posts = array_slice($this->getAllPosts(),$start,$this->getPostPrePage());
+		return $posts;
+	}
+
+	/**
+	 * 和 getPosts,不过是没有经过分页处理的
+	 * @return Post[]
+	 */
+	public function getAllPosts()
+	{
 		global $postHelper;
 		$posts = &$this->posts;
 		if(is_null($posts))
@@ -197,9 +209,7 @@ class Request
 				$posts = $postHelper->getPostListOfTags($this->tags);
 			elseif($this->isCategory())
 				$posts = $postHelper->getPostListOfCategory($this->category);
-			// 分页
-			$start = ($this->getPageNo() - 1) * $this->getPostPrePage();
-			$posts = array_slice($posts,$start,$this->getPostPrePage());
+
 		}
 		return $posts;
 	}
