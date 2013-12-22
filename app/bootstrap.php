@@ -2,12 +2,12 @@
 
 define('APP_DIR', __DIR__);
 define('TELLETS_DIR', realpath(__DIR__.'/../'));
-define('DATA_DIR', realpath(__DIR__ . './../data'.DIRECTORY_SEPARATOR));
-define('CACHE_DIR', DATA_DIR.DIRECTORY_SEPARATOR.'cache'.DIRECTORY_SEPARATOR);
-define('POSTS_DIR', DATA_DIR.DIRECTORY_SEPARATOR.'posts'.DIRECTORY_SEPARATOR);
+define('DATA_DIR', TELLETS_DIR . '/data');
+define('CACHE_DIR', DATA_DIR.DIRECTORY_SEPARATOR.'cache');
+define('POSTS_DIR', DATA_DIR.DIRECTORY_SEPARATOR.'posts');
 
-define('LIB_DIR', APP_DIR.DIRECTORY_SEPARATOR.'lib'.DIRECTORY_SEPARATOR);
-define('CLASSES_DIR', APP_DIR.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR);
+define('LIB_DIR', APP_DIR.DIRECTORY_SEPARATOR.'lib');
+define('CLASSES_DIR', APP_DIR.DIRECTORY_SEPARATOR.'classes');
 
 // 配置自动加载
 set_include_path(get_include_path().PATH_SEPARATOR.LIB_DIR);
@@ -37,7 +37,7 @@ include_once CLASSES_DIR . "/functions.php";
 include_once LIB_DIR . "/password.php";
 
 // load plugins
-foreach (glob(APP_DIR . "./plugins/*/main.php") as $filename)
+foreach (glob(APP_DIR . "/plugins/*/main.php") as $filename)
 {
 	include $filename;
 }

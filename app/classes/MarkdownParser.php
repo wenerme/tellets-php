@@ -1,7 +1,7 @@
 <?php
 
 use \Michelf\MarkdownExtra;
-include_once LIB_DIR.'markdown.php';
+include_once LIB_DIR.'/markdown.php';
 
 class MarkdownParser extends Parser
 {

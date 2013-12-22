@@ -1,7 +1,5 @@
 <?php
 
-require_once 'IPostHelper.php';
-
 function lazeLoadPostContent($post)
 {
 	return file_get_contents(CACHE_DIR.'/'.getPostCacheFileName($post));

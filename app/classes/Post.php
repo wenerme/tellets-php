@@ -1,5 +1,5 @@
 <?php
-require_once(LIB_DIR.'markdown.php');
+require_once(LIB_DIR.'/markdown.php');
 
 class Post extends ArrayObject
 {
