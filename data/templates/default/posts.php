@@ -4,7 +4,7 @@
 		<div id="content" class="container">
 			<?php
 			foreach($request->getPosts() as $post):
-				include __DIR__.'./post_part.php';
+				include __DIR__.'/post_part.php';
 			endforeach;?>
 			<div class="pagination">
 				<?php if($request->hasPrevPage()): ?>

@@ -5,7 +5,7 @@
 <div id="main-wrap">
 	<div id="content" class="container">
 		<?php
-			include __DIR__.'./post_part.php';
+			include __DIR__.'/post_part.php';
 		?>
 		<div class="pagination">
 			<?php if($postHelper->hasPrevPost($post)):
