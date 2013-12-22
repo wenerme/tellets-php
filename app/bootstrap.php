@@ -72,9 +72,9 @@ EOT
 
 	$config->addDefault('meta_description', 'One world, one wener.');
 
-	$config->addDefault('language', 'zh-cn');
+	$config->addDefault('language', 'zh-cn','设置你使用的语言代码');
 
-	$config->addDefault('active_template', 'default');
+
 
 	$config->addDefault('posts_pre_page', 6);
 	$config->addDefault('date_format', '%Y/%m/%d', 'Set the time format, see http://strftime.net/');
@@ -87,27 +87,31 @@ EOT
 EOT
 );
 
+	$config->addDefault('feed_max_items',10,'Feed 里显示文章的数量');
+
+	// 模板相关设置
 	$config->addDefault('extra_links', array(
 		'GitHub' => 'https://github.com/WenerLove/tellets',
 		'Get Start' => 'https://github.com/WenerLove/tellets',
-	),'额外链接,显示需要模板支持.', Config::NS_TEMPLATES);
+	),'额外链接,显示需要模板支持.', Config::NS_TEMPLATE);
 
-	$config->addDefault('feed_max_items',10,'Feed 里显示文章的数量');
+	$config->addDefault('active', 'default','当前使用的模板,值为templates里文件夹名'
+		, Config::NS_TEMPLATE);
 
-	// 模板评论相关
+	// 评论相关
 	$config->addDefault('comment_type','disqus',<<<EOT
 启用的社交评论插件,如果为 null|false则不启用
 可能的值为 disqus 或 duoshuo 等,在默认模板里面支持这两个
 设置该值后需要设置 comment_user
 注意: 评论插件的显示需要模板支持.
 EOT
-	,Config::NS_TEMPLATES);
+	,Config::NS_TEMPLATE);
 
 	$config->addDefault('comment_user','wener',<<<EOT
 当设置 with_comments 启用评论插件后
 使用该值来设置绑定的用户
 EOT
-	,Config::NS_TEMPLATES);
+	,Config::NS_TEMPLATE);
 
 }
 
@@ -122,8 +126,8 @@ Hook::TriggerEvent(Hook::CONFIG_COMPLETE,array($config));
 	define('INTRO_TITLE', $config['intro_title']);
 	define('INTRO_TEXT', $config['intro_text']);
 
-	define('TEMPLATE_DIR', DATA_DIR . '/templates/' . $config['active_template'] . '/');
-	define('TEMPLATE_URL', BLOG_URL. '/data/templates/' . $config['active_template'] . '/');
+	define('TEMPLATE_DIR', DATA_DIR . '/templates/' . $config[Config::NS_TEMPLATE]['active'] . '/');
+	define('TEMPLATE_URL', BLOG_URL. '/data/templates/' . $config[Config::NS_TEMPLATE]['active'] . '/');
 
 	// 似乎无效, 在 5.3 以上设置应该是可以用的
 	// http://php.net/manual/zh/ini.core.php

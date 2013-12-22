@@ -2,9 +2,18 @@
 
 class Config extends ArrayObject 
 {
+	/**
+	 * 一般配置信息
+	 */
 	const NS_CONFIG = 'config';
+	/**
+	 * 用于配置插件的设置
+	 */
 	const NS_PLUGINS = 'plugins';
-	const NS_TEMPLATES = 'templates';
+	/**
+	 * 用于配置 模板的显示信息
+	 */
+	const NS_TEMPLATE = 'template';
 
     private $changed = false;
     private $filename = '';
@@ -23,7 +32,7 @@ class Config extends ArrayObject
         	include $filename;
 
 	    $config[self::NS_PLUGINS] = $plugins;
-	    $config[self::NS_TEMPLATES] = $templates;
+	    $config[self::NS_TEMPLATE] = $templates;
 
         parent::__construct($config);
         // 如果被设置了，则进行反序列化
@@ -53,17 +62,17 @@ class Config extends ArrayObject
     	fwrite($fp,'<?php'.PHP_EOL);
 
 	    $plugins = $this[self::NS_PLUGINS];
-	    $templates = $this[self::NS_TEMPLATES];
+	    $templates = $this[self::NS_TEMPLATE];
 	    unset($this[self::NS_PLUGINS]);
-	    unset($this[self::NS_TEMPLATES]);
+	    unset($this[self::NS_TEMPLATE]);
     	// write value
 	    fwrite($fp, $this->serializeItem($this,'$config',@$this->description[self::NS_CONFIG]));
 	    fwrite($fp, $this->serializeItem($plugins,'$plugins',@$this->description[self::NS_PLUGINS]));
-	    fwrite($fp, $this->serializeItem($templates,'$templates',@$this->description[self::NS_TEMPLATES]));
+	    fwrite($fp, $this->serializeItem($templates,'$templates',@$this->description[self::NS_TEMPLATE]));
 
 	    // restore
 	    $this[self::NS_PLUGINS] = $plugins;
-	    $this[self::NS_TEMPLATES] = $templates;
+	    $this[self::NS_TEMPLATE] = $templates;
 
     	// save description
     	fwrite($fp, PHP_EOL.'/*-------------------- DO NOT CHANGE --------------------*/'.PHP_EOL);

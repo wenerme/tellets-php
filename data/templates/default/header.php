@@ -24,8 +24,8 @@
 
 		<nav id="site-nav">
 			<?php
-			if(is_array($config['templates']['extra_links']))
-				foreach($config['templates']['extra_links'] as $text => $url)
+			if(is_array($config[Config::NS_TEMPLATE]['extra_links']))
+				foreach($config[Config::NS_TEMPLATE]['extra_links'] as $text => $url)
 					echo "<a href='$url'>$text</a>";
 			?>
 		</nav>

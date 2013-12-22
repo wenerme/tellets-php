@@ -6,7 +6,6 @@ require_once __DIR__.'/app/bootstrap.php';
 if(false === isset($config['password']))
     goto FIRST_RUN;
 
-//$tellets->Update();
 
 $request = new Request(@$_GET['params']);
 Hook::TriggerEvent(Hook::RESOLVE_REQUEST, array($request));
@@ -18,6 +17,8 @@ function renderContext()
 
 	$post = $request->getSinglePost();
 	$posts = $request->getPosts();
+	$configt = &$config[Config::NS_TEMPLATE];
+	$configp = &$config[Config::NS_PLUGINS];
 
 	// display
 	if($posts)

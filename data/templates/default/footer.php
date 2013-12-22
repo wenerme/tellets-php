@@ -46,7 +46,7 @@
 
 <div class="container">
 	<?php if($request->isSingle())// 只有在单页才显示
-		switch($config[Config::NS_TEMPLATES]['comment_type']):
+		switch($config[Config::NS_TEMPLATE]['comment_type']):
 	case 'duoshuo':?>
 	<!-- Duoshuo Comment BEGIN -->
 	<div class="ds-thread"
@@ -55,7 +55,7 @@
 		>
 	     </div>
 	<script type="text/javascript">
-		var duoshuoQuery = {short_name:"<?=$config[Config::NS_TEMPLATES]['comment_user']?>"};
+		var duoshuoQuery = {short_name:"<?=$config[Config::NS_TEMPLATE]['comment_user']?>"};
 		(function() {
 			var ds = document.createElement('script');
 			ds.type = 'text/javascript';ds.async = true;
@@ -72,7 +72,7 @@
 		<div id="disqus_thread"></div>
 		<script type="text/javascript">
 			/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-			var disqus_shortname = '<?=$config[Config::NS_TEMPLATES]['comment_user']?>'; // required: replace example with your forum shortname
+			var disqus_shortname = '<?=$config[Config::NS_TEMPLATE]['comment_user']?>'; // required: replace example with your forum shortname
 			var disqus_identifier = '<?=$post['link']?>';
 			var disqus_title = '<?=$post['title']?>';
 
