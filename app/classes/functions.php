@@ -111,3 +111,50 @@ function remove_byte_order_mark($str)
 	|(?:\xFF\xFE) # UTF-16 (LE)
 	)~x','',$str);
 }
+
+/**
+ * 返回当前页面的 URL
+ * @return string
+ */
+function get_current_url()
+{
+	// 使用的原来的计算方法
+	// 考虑使用这个版本,但是计算的多些 http://stackoverflow.com/questions/6768793
+
+	// Get the components of the current url.
+	$protocol = @( $_SERVER["HTTPS"] != 'on') ? 'http://' : 'https://';
+	$domain = $_SERVER["SERVER_NAME"];
+	$port = $_SERVER["SERVER_PORT"];
+	$path = $_SERVER["REQUEST_URI"];
+
+	$url = '';
+	// Check if running on alternate port.
+	if ($protocol === "https://") {
+		if ($port == 443)
+			$url = $protocol . $domain;
+		else
+			$url = $protocol . $domain . ":" . $port;
+	} elseif ($protocol === "http://") {
+		if ($port == 80)
+			$url = $protocol . $domain;
+		else
+			$url = $protocol . $domain . ":" . $port;
+	}
+
+	$url .= $path;
+	return $url;
+}
+
+/**
+ * 返回应用的url
+ * @return string
+ */
+function get_app_url()
+{
+	// 因为所有的操作会跳转到 index.php,所以这一步会成功
+	$dir = dirname($_SERVER['SCRIPT_NAME']);
+	$url = get_current_url();
+	$start = strpos($url, $dir) + strlen($dir);
+	$url = substr($url, 0, $start);
+	return $url;
+}

@@ -23,7 +23,7 @@ function rssOratomAction($request)
 	($action == 'rss') ? $feed = new RSS2() : $feed = new Atom();
 
 	$feed->setTitle($config['blog_title']);
-	$feed->setLink($config['blog_url']);
+	$feed->setLink(BLOG_URL);
 	$feed->setEncoding('utf-8');
 
 	if ($action == 'rss')
@@ -50,14 +50,14 @@ function rssOratomAction($request)
 
 				// Remove HTML from the RSS feed.
 				$item->setTitle(substr($post['title'], 4, -6));
-				$item->setLink(rtrim($config['blog_url'], '/') . '/' . $post['link']);
+				$item->setLink(rtrim(BLOG_URL, '/') . '/' . $post['link']);
 				$item->setDate($post['date']);
 
 
 				if ($action == 'rss')
 				{
 					$item->addElement('author', $post['title']);
-					$item->addElement('guid', rtrim($config['blog_url'], '/') . '/' . $post['link']);
+					$item->addElement('guid', rtrim(BLOG_URL, '/') . '/' . $post['link']);
 				}
 
 

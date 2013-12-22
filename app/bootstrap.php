@@ -36,6 +36,7 @@ spl_autoload_register(function($name)
 include_once CLASSES_DIR . "/functions.php";
 include_once LIB_DIR . "/password.php";
 
+define('BLOG_URL', get_app_url());
 // load plugins
 foreach (glob(APP_DIR . "/plugins/*/main.php") as $filename)
 {
@@ -68,7 +69,6 @@ EOT
 	);
 
 	$config->addDefault('blog_title', 'One world, one wener.');
-	$config->addDefault('blog_url', 'http://wener.me');
 
 	$config->addDefault('meta_description', 'One world, one wener.');
 
@@ -118,13 +118,12 @@ Hook::TriggerEvent(Hook::CONFIG_COMPLETE,array($config));
 	date_default_timezone_set($config['timezone']);
 	ini_set('display_errors', true);
 
-	define('BLOG_URL', $config['blog_url']);
 	define('BLOG_TITLE', $config['blog_title']);
 	define('INTRO_TITLE', $config['intro_title']);
 	define('INTRO_TEXT', $config['intro_text']);
 
 	define('TEMPLATE_DIR', DATA_DIR . '/templates/' . $config['active_template'] . '/');
-	define('TEMPLATE_URL', $config['blog_url'] . '/data/templates/' . $config['active_template'] . '/');
+	define('TEMPLATE_URL', BLOG_URL. '/data/templates/' . $config['active_template'] . '/');
 
 	// 似乎无效, 在 5.3 以上设置应该是可以用的
 	// http://php.net/manual/zh/ini.core.php

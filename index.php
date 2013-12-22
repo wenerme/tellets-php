@@ -40,39 +40,12 @@ exit();
 
 FIRST_RUN:
 
-// Get the components of the current url.
-$protocol = @( $_SERVER["HTTPS"] != 'on') ? 'http://' : 'https://';
-$domain = $_SERVER["SERVER_NAME"];
-$port = $_SERVER["SERVER_PORT"];
-$path = $_SERVER["REQUEST_URI"];
-
-// Check if running on alternate port.
-if ($protocol === "https://") {
-    if ($port == 443)
-        $url = $protocol . $domain;
-    else
-        $url = $protocol . $domain . ":" . $port;
-} elseif ($protocol === "http://") {
-    if ($port == 80)
-        $url = $protocol . $domain;
-    else
-        $url = $protocol . $domain . ":" . $port;
-}
-
-if(strpos($path,'index.php'))
-	$path = dirname($path);
-
-$url .= $path;
-
-// setup config
-$config['blog_url'] = $url;
-
 // 第一次运行,设置密码
 if(isset($_POST['password']))
 {
 	$tellets->SetUp();
 	// Redirect
-	header("Location: " . $config['blog_url']);
+	header("Location: " . BLOG_URL);
 	exit;
 }
 
@@ -102,7 +75,6 @@ $is_writable = (TRUE == is_writable(dirname(__FILE__) . '/'));
     <input type="password" name="password-confirmation" id="password-confirmation" required placeholder="Confirm Your Password" onblur="confirmPass()">
 
     <input hidden type="text" name="blog_email" id="blog_email" value="wenermail@gmail.com">
-    <input hidden type="text" name="blog_url" id="blog_url" value="<?php echo($url) ?><?php if ($url == $domain) { ?>/<?php } ?>">
     <input hidden type="text" name="template" id="template" value="default">
     <input hidden type="text" name="blog_title" id="blog_title" value="Welcome to Tellets">
     <textarea hidden name="meta_description" id="meta_description"></textarea>
