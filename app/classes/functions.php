@@ -140,6 +140,9 @@ function get_app_url()
 	// 因为所有的操作会跳转到 index.php,所以这一步会成功
 	$dir = dirname($_SERVER['SCRIPT_NAME']);
 	$url = get_current_url();
+	if($dir==='\\' || $dir === '/')
+		$dir = (@( $_SERVER["HTTPS"] != 'on') ? 'http://' : 'https://') . $_SERVER['SERVER_NAME'].'/';
+
 	$start = strpos($url, $dir) + strlen($dir);
 	$url = substr($url, 0, $start);
 	return $url;

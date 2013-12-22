@@ -214,9 +214,10 @@ $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 * 添加 基本的meta,例如 generateby
 * 添加 ext 元字段到Post,用于记录原来的内容格式.
 * 实现 message 页面消息的传递
-* 完善 update 的消息显示
 * X 集成 Disqus 或 多说
-* X 移除 active_template, 使用 ['template']['active'] 替代
+* 实现后台 update, 时间间隔的update
+* 实现 log
+* 完善 feed
 
 Hooks
 -----

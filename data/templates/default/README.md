@@ -3,3 +3,5 @@
 
 ### Need Help?
 Help is just an email away... wenermail@gmail.com.
+
+> Inspired by http://thomaspark.me/
