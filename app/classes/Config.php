@@ -36,7 +36,7 @@ class Config extends ArrayObject
 
         parent::__construct($config);
         // 如果被设置了，则进行反序列化
-        !!$description && $this->description = json_decode(base64_decode($description));
+        !!$description && $this->description = json_decode(base64_decode($description), true);
     }
 
 
