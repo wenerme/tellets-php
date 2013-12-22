@@ -200,7 +200,7 @@ last_update_time=xxxxx ; 最后一次跟新时间,获取的时候会和
 * X 尚未实现 link 元字段指定持久链接
 * 尚未实现多作者
 * X 尚未实现文章导航 上一篇文章和下一篇文章
-* 添加 Tag 和 Category 列表到 footer
+* X 添加 Tag 和 Category 列表到 footer
 * X 实现 github_repo
 * X 修改 config,以支持数组类型的配置选项
 * X 实现 tags,可以搜索多个标签
@@ -214,34 +214,11 @@ $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 * 添加 基本的meta,例如 generateby
 * 添加 ext 元字段到Post,用于记录原来的内容格式.
 * 实现 message 页面消息的传递
-
-特点
-----
-
-* 文章是基于 MarkUp的,易于编写
-* 使用github托管文章,管理和编辑方便
-* 模板系统简单,易于编写
-* 无数据库,使用起来轻松方便
-* 0 配置
-* 简单的Hook系统,编写插件得心应手
-
-模板上下文
----------
-
-$request, $posts, $post, $tellets, $postHelper, $config
+* 集成 Disqus 或 多说
 
 Hooks
 -----
 
-标准的 post meta
-------------------
-
-* title
-* date
-* category
-* tag Array
-* link string 作为生成链接的依据,默认的链接生成是从 title生成的
-* ext string 该文章的扩展名
 
 需求
 ----

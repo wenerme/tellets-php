@@ -8,7 +8,7 @@ if(false === isset($config['password']))
 
 //$tellets->Update();
 
-$request = new Request(@$_GET['filename']);
+$request = new Request(@$_GET['params']);
 Hook::TriggerEvent(Hook::RESOLVE_REQUEST, array($request));
 
 
