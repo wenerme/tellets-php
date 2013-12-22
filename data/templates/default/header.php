@@ -10,7 +10,7 @@
 	<link href='<?=TEMPLATE_URL ?>/styles/normalize.css' rel='stylesheet'>
 	<link href='<?=TEMPLATE_URL ?>/styles/style.css' rel='stylesheet'>
 
-	<?php getHeader();?>
+	<?php get_header();?>
 </head>
 
 <body>

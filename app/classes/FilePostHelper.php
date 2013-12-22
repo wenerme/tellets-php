@@ -2,7 +2,7 @@
 
 function lazeLoadPostContent($post)
 {
-	return file_get_contents(CACHE_DIR.'/'.getPostCacheFileName($post));
+	return file_get_contents(CACHE_DIR.'/'.get_post_cache_file_name($post));
 }
 
 class FilePostHelper implements IPostHelper
@@ -74,7 +74,7 @@ class FilePostHelper implements IPostHelper
 				continue;
 
 			// cache content
-			file_put_contents(CACHE_DIR.'/'.getPostCacheFileName($post),$content);
+			file_put_contents(CACHE_DIR.'/'.get_post_cache_file_name($post),$content);
 		}
 
 		file_put_contents($filename,serialize($metas));
@@ -89,9 +89,9 @@ class FilePostHelper implements IPostHelper
 		{
 			// 保持link不会改变
 			if(isset($post['link']))
-				$post['link'] = toLinkTitle($post['link']);
+				$post['link'] = to_link_title($post['link']);
 			else
-				$post['link'] = toLinkTitle($post->getTitle());
+				$post['link'] = to_link_title($post->getTitle());
 
 			// 如果没有 date,则设置为 0,这样date会是最老的文章时间
 			isset($post['date']) || $post['date'] = 0;

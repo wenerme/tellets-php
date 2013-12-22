@@ -11,13 +11,13 @@
 			<?php if($postHelper->hasPrevPost($post)):
 				$thepost = $postHelper->getPrevPost($post);
 				?>
-			<a href="<?=getPostLink($thepost)?>" class="prev-page">&lt; <?=$thepost['title']?></a>
+			<a href="<?=get_post_link($thepost)?>" class="prev-page">&lt; <?=$thepost['title']?></a>
 			<?php endif;?>
 
 			<?php if($postHelper->hasNextPost($post)):
 				$thepost = $postHelper->getNextPost($post);
 				?>
-				<a href="<?=getPostLink($thepost)?>" class="next-page"><?=$thepost['title']?> &gt;</a>
+				<a href="<?=get_post_link($thepost)?>" class="next-page"><?=$thepost['title']?> &gt;</a>
 			<?php endif;?>
 		</div>
 	</div>

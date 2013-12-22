@@ -20,7 +20,7 @@
 			<ul>
 				<li>Tags</li>
 				<?php foreach ($tags as $item => $num):?>
-					<li><a href="<?=getTagLink($item) ?>">
+					<li><a href="<?=get_tag_link($item) ?>">
 							<?= $item?>
 							<small>(<?=$num?>)</small>
 						</a>
@@ -33,7 +33,7 @@
 			<ul>
 				<li>Categories</li>
 				<?php foreach ($categories as $item => $num):?>
-					<li><a href="<?=getCategoryLink($item) ?>">
+					<li><a href="<?=get_category_link($item) ?>">
 							<?= $item?>
 							<small>(<?=$num?>)</small>
 						</a>

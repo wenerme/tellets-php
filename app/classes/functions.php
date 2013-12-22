@@ -1,13 +1,10 @@
 <?php
 
-
-
-
 /**
  * 将字符串转换为可以放在url里的标题
  * @param string $string
  */
-function toLinkTitle($string)
+function to_link_title($string)
 {
 	$result = strtolower($string);
 	// 将多个空格转换为单个空格
@@ -33,7 +30,7 @@ function toLinkTitle($string)
  * @param Post $post
  * @throws InvalidArgumentException
  */
-function getPostCacheFileName($post)
+function get_post_cache_file_name($post)
 {
 	if(!$post){throw new InvalidArgumentException('$post 参数无效.');}
 	$fn = '';
@@ -42,36 +39,25 @@ function getPostCacheFileName($post)
 	return $fn;
 }
 
-function getEventResult($event, $args)
+function get_header()
 {
-	Hook::TriggerEvent($event,$args);
-	return $args;
+	Hook::TriggerEvent(Hook::GENERATE_HEADER,array());
 }
 
-function getHeader()
+function get_footer()
 {
-	getEventResult(Hook::GENERATE_HEADER, array());
+	Hook::TriggerEvent(Hook::GENERATE_FOOTER,array());
 }
 
-function getFooter()
-{
-	getEventResult(Hook::GENERATE_FOOTER, array());
-}
-
-function getMeta()
-{
-	getEventResult(Hook::GENERATE_META, array());
-}
-
-function getTagLink($item)
+function get_tag_link($item)
 {
 	return sprintf('%s/tag/%s',rtrim(BLOG_URL,'/'),$item);
 }
-function getPostLink($item)
+function get_post_link($item)
 {
 	return sprintf('%s/%s',rtrim(BLOG_URL,'/'),$item['link']);
 }
-function getCategoryLink($item)
+function get_category_link($item)
 {
 	return sprintf('%s/category/%s',rtrim(BLOG_URL,'/'),$item);
 }
@@ -82,7 +68,7 @@ function getCategoryLink($item)
  * @param $parentClassName
  * @return array
  */
-function getSubclasses($parentClassName)
+function get_subclasses($parentClassName)
 {
 	$classes = array();
 	foreach (get_declared_classes() as $className)
