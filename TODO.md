@@ -201,7 +201,7 @@ last_update_time=xxxxx ; 最后一次跟新时间,获取的时候会和
 * 尚未实现多作者
 * X 尚未实现文章导航 上一篇文章和下一篇文章
 * 添加 Tag 和 Category 列表到 footer
-* 实现 github_repo
+* X 实现 github_repo
 * X 修改 config,以支持数组类型的配置选项
 * X 实现 tags,可以搜索多个标签
 * X Config 增加 ns, PLUGINS,TEMPLATES
@@ -213,6 +213,7 @@ $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 * X config.php 保存时,增加 $plugins 和 $templates
 * 添加 基本的meta,例如 generateby
 * 添加 ext 元字段到Post,用于记录原来的内容格式.
+* 实现 message 页面消息的传递
 
 特点
 ----
