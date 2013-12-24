@@ -25,7 +25,7 @@ function rssOratomAction($request)
 
 	($action == 'rss') ? $feed = new RSS2() : $feed = new Atom();
 
-	$feed->setTitle($config['blog_title']);
+	$feed->setTitle(BLOG_TITLE);
 	$feed->setLink(BLOG_URL);
 	$feed->setEncoding('utf-8');
 
@@ -36,7 +36,7 @@ function rssOratomAction($request)
 		$feed->setChannelElement('pubDate', date(DATE_RSS, time()));
 	} else
 	{
-		$feed->setChannelElement('author', $config['blog_title'] . ' - ' . $config['author_email']);
+		$feed->setChannelElement('author', BLOG_TITLE . ' - ' . $config['author_email']);
 		$feed->setChannelElement('updated', date(DATE_RSS, time()));
 	}
 
@@ -49,18 +49,21 @@ function rssOratomAction($request)
 		{
 			if ($c < $config['feed_max_items'])
 			{
+				/**
+				 * @params Item
+				 */
 				$item = $feed->createNewItem();
 
 				// Remove HTML from the RSS feed.
-				$item->setTitle(substr($post['title'], 4, -6));
-				$item->setLink(rtrim(BLOG_URL, '/') . '/' . $post['link']);
+				$item->setTitle($post['title']);
+				$item->setLink( get_post_link($post));
 				$item->setDate($post['date']);
-
+				$item->setId($post['link']);
 
 				if ($action == 'rss')
 				{
 					$item->addElement('author', $post['title']);
-					$item->addElement('guid', rtrim(BLOG_URL, '/') . '/' . $post['link']);
+					$item->addElement('guid', get_post_link($post));
 				}
 
 

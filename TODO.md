@@ -216,7 +216,8 @@ $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 * -------------- v 1.1
 * 完善 feed
 * 完善 markdown 的样式显示
-* X 添加 基本的meta,例如 generateby
+* X 添加 基本的meta,例如 generator
+* 添加 with_header 和 with_footer 选项,用于在生成时加入到页面中
 * 添加 ext 元字段到Post,用于记录原来的内容格式.
 * 实现 message 页面消息的传递
 * auto_update 实现后台 update, 时间间隔的update, 使用文件锁实现只允许一个 update
@@ -224,6 +225,13 @@ $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 * 实现 log
 
 * ---------------v 1.3
+
+
+其他目标
+--------
+
+* tellets 的 favicon
+
 
 Hooks
 -----
