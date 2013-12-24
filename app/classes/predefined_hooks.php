@@ -6,6 +6,9 @@ Hook::AddHook(Hook::RESOLVE_REQUEST, 'rssOratomAction');
 Hook::AddHook(Hook::RESOLVE_POST, 'basic_post_resolver');
 Hook::AddHook(Hook::FIND_POST_LIST, 'posts_in_post_dir');
 Hook::AddHook(Hook::RESOLVE_REQUEST, 'update_action');
+Hook::AddHook(Hook::GENERATE_HEADER, 'generate_default_header');
+
+
 /**
  * @param Request $request
  */
@@ -109,4 +112,14 @@ function update_action($request)
 	set_time_limit (0);
 	global $tellets;
 	$tellets->Update();
+}
+
+function generate_default_header()
+{
+	$K = 'strval';
+
+	echo <<<EOT
+<meta name="generator" content="Tellets {$K(TELLETS_VERSION)}">
+EOT;
+
 }

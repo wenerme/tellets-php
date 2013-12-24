@@ -211,15 +211,19 @@ $config['name'] 将访问到 CONFIG
 $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 ```
 * X config.php 保存时,增加 $plugins 和 $templates
-* 添加 基本的meta,例如 generateby
-* 添加 ext 元字段到Post,用于记录原来的内容格式.
-* 实现 message 页面消息的传递
 * X 集成 Disqus 或 多说
-* 实现后台 update, 时间间隔的update, 使用文件锁实现只允许一个 update
-* 实现 log
+* X 移除 markdown.php 使用Michelf\Markdown
+* -------------- v 1.1
 * 完善 feed
 * 完善 markdown 的样式显示
-* X 移除 markdown.php 使用Michelf\Markdown
+* X 添加 基本的meta,例如 generateby
+* 添加 ext 元字段到Post,用于记录原来的内容格式.
+* 实现 message 页面消息的传递
+* auto_update 实现后台 update, 时间间隔的update, 使用文件锁实现只允许一个 update
+* --------------- v1.2
+* 实现 log
+
+* ---------------v 1.3
 
 Hooks
 -----
@@ -238,28 +242,3 @@ $post, $posts
 ----
 password_compat
 : PHP >= 5.3
-
------------------------------------------------------------------
-
-如果 PostParser 是单例的，那么则不能根据每个文章来设置参数进行设置
-但是一般这一步也是不需要的，Parser只是一个x2html的工具，且部分是由插件实现的
-
-关于实现git_repo,
-
-需要 PostParser 有一个 canParser 函数，用来判断该文件是否能解析
-以避免下载大量文件，还有一点是，下载的文件需要预先下载来缓存到本地，
-这样不让Parser进行网络下载，而只是获取一个本地的文件，并且github下载文件需要经过一系列处理
-
-还有一点，缓存的文件后缀是必要的，用来获取不同的解析器，文件名使用sha即可
-
-在下载时先判断本地文件是否存在，存在则不下载。
-
-配置git_repo
-
-plugins.git_repos
-	.enable = true
-	.repos
-		WenerLove/tellets
-		WenerLove/note:master/path/file.md;auth=name:password
-	.ignore // 可以考虑忽略匹配的文件名，不过只要state不为 published都不会显示，但是也少了解析这一步
-		/^readme/i

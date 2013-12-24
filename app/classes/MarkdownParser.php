@@ -5,6 +5,8 @@ use \Michelf\MarkdownExtra;
 class MarkdownParser extends Parser
 {
 
+	const EXTENSION = '#\.(markdown|md|mdown|mkd|mkdn|mdwn|mdtxt|mdtext|text)$#i';
+
 	/**
 	 * @param $content
 	 * @return array

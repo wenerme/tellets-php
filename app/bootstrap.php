@@ -1,5 +1,7 @@
 <?php
 
+define('TELLETS_VERSION','1.1');
+
 define('APP_DIR', __DIR__);
 define('TELLETS_DIR', realpath(__DIR__.'/../'));
 define('DATA_DIR', TELLETS_DIR . '/data');
@@ -143,7 +145,7 @@ $tellets->postHelper = & $postHelper;
 // 添加预定义动作
 include_once CLASSES_DIR.'/predefined_hooks.php';
 // 添加预定义解析器
-ParserFactory::RegisterParser('#\.(markdown|md|mdown|mkd|mkdn|mdwn|mdtxt|mdtext|text)$#i', 'MarkdownParser');
+ParserFactory::RegisterParser(MarkdownParser::EXTENSION, 'MarkdownParser');
 
 // 启动完成
 Hook::TriggerEvent(Hook::BOOTSTRAP,array());
