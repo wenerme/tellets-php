@@ -15,7 +15,7 @@ Tellets-EN
 
 Tellets is a markup based blog platform.
 
-Main feature
+Main features
 ------------
 
 * Markup based, easy to write.
