@@ -22,7 +22,7 @@ Tellets 是一个基于Markup的博客平台.
 * 无繁杂的管理系统,你只需要写就可以了
 * 集成了 disqus和多说,可选择打开.
 
-更多信息,请前往 [wiki](https://github.com/WenerLove/dropplets/wiki/All-about-tellets)
+更多信息,请前往 __[wiki](https://github.com/WenerLove/dropplets/wiki/All-about-tellets)__
 
 <!-- more -->
 

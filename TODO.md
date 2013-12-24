@@ -215,9 +215,11 @@ $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 * 添加 ext 元字段到Post,用于记录原来的内容格式.
 * 实现 message 页面消息的传递
 * X 集成 Disqus 或 多说
-* 实现后台 update, 时间间隔的update
+* 实现后台 update, 时间间隔的update, 使用文件锁实现只允许一个 update
 * 实现 log
 * 完善 feed
+* 完善 markdown 的样式显示
+* 移除 markdown.php 使用Michelf\Markdown
 
 Hooks
 -----
