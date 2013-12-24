@@ -8,7 +8,7 @@
 		</aside>
 	</header>
 	<!-- #end header -->
-	<div class="post-content <?=$request->isSingle()?'':'post-intro'?>">
+	<div class="markdown post-content <?=$request->isSingle()?'':'post-intro'?>">
 		<?php
 			// 判断是在单页文章还是在文章列表页面,如果在列表页面就只显示摘要
 			// 如果没有摘要则直接显示内容

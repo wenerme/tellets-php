@@ -218,7 +218,7 @@ $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 * 完善 markdown 的样式显示
 * X 添加 基本的meta,例如 generator
 * X 添加 with_header 和 with_footer 选项,用于在生成时加入到页面中
-* 添加 ext 元字段到Post,用于记录原来的内容格式.
+* X 添加 ext 元字段到Post,用于记录原来的内容格式.
 * --------------- v1.2
 * 实现 log
 * 添加 HTMLParser

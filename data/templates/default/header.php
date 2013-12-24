@@ -9,6 +9,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 	<link href='<?=TEMPLATE_URL ?>/styles/normalize.css' rel='stylesheet'>
 	<link href='<?=TEMPLATE_URL ?>/styles/style.css' rel='stylesheet'>
+	<link href='<?=TEMPLATE_URL ?>/styles/markdown.css' rel='stylesheet'>
 
 	<?php get_header();?>
 </head>

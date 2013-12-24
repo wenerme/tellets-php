@@ -47,7 +47,7 @@ DEMO: [MY BLOG](http://blog.wener.me/)
 
 e.g. My blog setting for github repos(where I host my posts):
 
-```
+```php
 
 $plugins['github_repo']['repos'] = preg_split('#[\n\r]+#',<<<REPOS
 WenerLove/blog
