@@ -17,7 +17,7 @@ github_repo 插件:
 bool enable 设置是否启用
 array repos 添加github源
 
-repo格式为 vender/repo[:branch][/path][;auth=username|password][;readmeonly]
+repo格式为 user/repo[:branch][/path][;auth=username|password][;readmeonly]
 EOT
 			,Config::NS_PLUGINS);
 	}

@@ -39,7 +39,11 @@ abstract class Parser
 	 * @return Post
 	 */
 	public function parseFile($filename)
-	{ return $this->parseContent(file_get_contents($filename));}
+	{
+		$post = $this->parseContent(file_get_contents($filename));
+		$post['ext'] = pathinfo($filename, PATHINFO_EXTENSION);;
+		return ;
+	}
 
 	/**
 	 * Convert the string to array.

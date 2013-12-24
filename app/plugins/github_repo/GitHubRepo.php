@@ -15,7 +15,7 @@ class GithubRepo
 	protected  $context;
 	private $track = false;
 	/**
-	 * setting format: vender/repo[:branch][/path]
+	 * setting format: user/repo[:branch][/path]
 	 */
 	function __construct($repo)
 	{
