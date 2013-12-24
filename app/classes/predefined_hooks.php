@@ -106,6 +106,7 @@ function update_action($request)
 	if (!($request->isAction() && $request->getAction() === 'update'))
 		return;
 
+	set_time_limit (0);
 	global $tellets;
 	$tellets->Update();
 }

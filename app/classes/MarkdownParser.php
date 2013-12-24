@@ -1,7 +1,6 @@
 <?php
 
 use \Michelf\MarkdownExtra;
-include_once LIB_DIR.'/markdown.php';
 
 class MarkdownParser extends Parser
 {
@@ -54,7 +53,7 @@ class MarkdownParser extends Parser
 		$parts = preg_split('/^\s*<!--\s*more\s*-->\s*$/m',$content);
 		if(isset($parts[1]))
 		{
-			$meta[Post::INTRO_META] = Markdown(substr($parts[0],strlen($all[0])));
+			$meta[Post::INTRO_META] = MarkdownExtra::defaultTransform(substr($parts[0],strlen($all[0])));
 		}
 
 		COMPLETE_PARSE_META:
@@ -69,6 +68,6 @@ class MarkdownParser extends Parser
 	 */
 	public function parseContentOnly($content)
 	{
-		return Markdown($content);
+		return MarkdownExtra::defaultTransform($content);
 	}
 }

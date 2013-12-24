@@ -23,7 +23,7 @@ Main features
 * Template is easy to modify and implement.
 * No database.
 * No admin board, you don't have to care about you blog site.
-* Zero configuration, you can put tellets everywhere whit no change.
+* Zero configuration, you can put tellets everywhere with no change.
 * Easy to write extension for tellets.
 * Integrate disqus and duoshuo  for comments.
 
@@ -73,6 +73,10 @@ Requirement
 
 > This directive also affected the shorthand
 > <?= before PHP 5.4.0, which is identical to <? echo. Use of this shortcut required short_open_tag to be on. Since PHP 5.4.0, <?= is always available.
+
+* Markdown requirement see [here](https://github.com/michelf/php-markdown#requirement)
+
+> Before PHP 5.3.7, pcre.backtrack_limit defaults to 100 000, which is too small in many situations. You might need to set it to higher values. Later PHP releases defaults to 1 000 000, which is usually fine.
 
 * Nginx Setting: work on it, not test yet
 

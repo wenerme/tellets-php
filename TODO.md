@@ -219,7 +219,7 @@ $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 * 实现 log
 * 完善 feed
 * 完善 markdown 的样式显示
-* 移除 markdown.php 使用Michelf\Markdown
+* X 移除 markdown.php 使用Michelf\Markdown
 
 Hooks
 -----
