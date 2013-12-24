@@ -5,8 +5,8 @@
 <!-- state: published -->
 <!-- link: tellets -->
 
-* 中文 [说明文档](#Tellets-CN)
-* English [README](#Tellets-EN)
+* 中文 [说明文档](#tellets-cn)
+* English [README](#tellets-en)
 
 <!-- more -->
 
@@ -30,16 +30,18 @@ Main feature
 Getting Started
 ---------------
 
-- [Requirement](#Requirement)
+- [Requirement](#requirement)
 - [Installation](#installation)
-- [Writing Posts](#Writing-Posts)
+- [Writing Posts](#writing-Posts)
 - [Publishing Posts](#publishing-posts)
 - [Update Posts](#update-posts)
 - [Changing Settings](#changing-settings)
 - [Changing Templates](#changing-templates)
-- [Enable disqus](#Enable-disqus)
-- [Updating Tellets](#updating-Tellets)
-- [MIT-License](#MIT-license)
+- [Enable disqus](#enable-disqus)
+- [Updating Tellets](#updating-tellets)
+- [MIT-License](#mit-license)
+
+For more, please visit __[WIKI](https://github.com/WenerLove/dropplets/wiki/All-about-tellets)__
 
 DEMO: [MY BLOG](http://blog.wener.me/)
 
