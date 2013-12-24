@@ -5,7 +5,167 @@
 <!-- state: published -->
 <!-- link: tellets -->
 
-Tellets
+* 中文 [说明文档](#Tellets-CN)
+* English [README](#Tellets-EN)
+
+<!-- more -->
+
+Tellets-EN
+==========
+
+Tellets is a markup based blog platform.
+
+Main feature
+------------
+
+* Markup based, easy to write.
+* Use github to host you posts, easy to manage and edit.
+* Template is easy to modify and implement.
+* No database.
+* No admin board, you don't have to care about you blog site.
+* Zero configuration, you can put tellets everywhere whit no change.
+* Easy to write extension for tellets.
+* Integrate disqus and duoshuo  for comments.
+
+Getting Started
+---------------
+
+- [Requirement](#Requirement)
+- [Installation](#installation)
+- [Writing Posts](#Writing-Posts)
+- [Publishing Posts](#publishing-posts)
+- [Update Posts](#update-posts)
+- [Changing Settings](#changing-settings)
+- [Changing Templates](#changing-templates)
+- [Enable disqus](#Enable-disqus)
+- [Updating Tellets](#updating-Tellets)
+- [MIT-License](#MIT-license)
+
+DEMO: [MY BLOG](http://blog.wener.me/)
+
+e.g. My blog setting for github repos(where I host my posts):
+
+```
+
+$plugins['github_repo']['repos'] = preg_split('#[\n\r]+#',<<<REPOS
+WenerLove/blog
+WenerLove/asp.net.SaySay/README.md
+WenerLove/greedy_snake/README.md
+WenerLove/java.blog/README.md
+WenerLove/tellets/README.md
+WenerLove/GTetris/README.md
+REPOS
+);
+
+```
+
+
+
+Requirement
+------------
+
+* PHP >= 5.3
+
+* php.ini
+	* short-open-tag on
+
+> This directive also affected the shorthand
+> <?= before PHP 5.4.0, which is identical to <? echo. Use of this shortcut required short_open_tag to be on. Since PHP 5.4.0, <?= is always available.
+
+* Nginx Setting: work on it, not test yet
+
+* Apache, Rewrite module
+
+Installation
+--------------
+
+Download
+[latest zip archive](https://github.com/WenerLove/tellets/archive/master.zip),
+unzip to where you want.
+
+Writing Posts
+-------------
+
+Example first,
+please read a few lines of the [README](https://github.com/WenerLove/tellets/edit/master/README.md)
+, here is some `metadata` we need.
+
+```
+
+<!-- title: Tellets README -->
+<!-- category: Posting -->
+<!-- tag: Project -->
+<!-- date: 2013/12/7 -->
+<!-- state: published -->
+<!-- link: tellets -->
+
+```
+
+`<!-- state: published -->` is required for publish
+posts.If `state is not published`, tellets
+will ignore this posts.
+
+`<!-- link: tellets -->` is not required,if you
+need a perm link, you will need this.
+If no link, will generate from title.
+
+Convert code is
+[here](https://github.com/WenerLove/tellets/blob/master/app/classes/functions.php#L7)
+.
+
+Publishing Posts
+-----------------
+
+Require `<!-- state: published -->`.
+
+Update Posts
+------------
+
+tellets will not notice the posts change,
+you have to do this by visit `action/update`.
+A auto update plugin in progress.
+
+Changing Settings
+-----------------
+
+Setting file is `data/config.php`.
+will generate when first run.
+Settings is well comments.
+
+Changing Templates
+-------------------
+
+Put you theme in `data/templates`,
+change `$template['active']` to the
+dir.
+
+Enable disqus
+-------------
+
+In `config.php`,  find `$template['comment_type']`
+and `$template['comment_user']`.
+
+Set `$template['comment_type'] = 'disqus';` to
+enable disqus, or `null` to disable.
+Set `$template['comment_user'] = 'wener';` to
+you username in disqus.
+
+Updating Tellets
+----------------
+
+Currently, the only way to update tellets is
+download and unzip again.
+
+MIT-License
+------------
+
+tellets is MIT license, different from dropplets.
+
+
+
+--------------------
+
+Tellets-CN
 ========
 
 Tellets 是一个基于Markup的博客平台.
@@ -23,8 +183,6 @@ Tellets 是一个基于Markup的博客平台.
 * 集成了 disqus和多说,可选择打开.
 
 更多信息,请前往 __[wiki](https://github.com/WenerLove/dropplets/wiki/All-about-tellets)__
-
-<!-- more -->
 
 Getting Started
 ---------------
@@ -48,7 +206,7 @@ WenerLove/blog
 WenerLove/asp.net.SaySay/README.md
 WenerLove/greedy_snake/README.md
 WenerLove/java.blog/README.md
-WenerLove/dropplets/README.md
+WenerLove/tellets/README.md
 WenerLove/GTetris/README.md
 REPOS
 );
@@ -106,7 +264,7 @@ Tellets 这个名字中的 lets 是继承自 dropplets.
 -------
 
 PHP
-: > 5.3
+: >= 5.3
 
 short-open-tag
 : 在模板中为了简洁, 使用了很多 PHP 代码开始标志的缩写方式,
@@ -127,7 +285,7 @@ Apache
 撰写文章
 -------
 
-在撰写文章之前,请看一下这个 [README 的前 几行](https://github.com/WenerLove/dropplets/edit/master/README.md).
+在撰写文章之前,请看一下这个 [README 的前 几行](https://github.com/WenerLove/tellets/edit/master/README.md).
 这个 README 其实就是一篇博文,你会注意到文章开头的 HTML 注释,
 `<!-- title: Tellets README -->`.我管这个叫做 `元信息`,主要用于告诉 tellets 这是什么.
 
