@@ -100,6 +100,12 @@ EOT
 	$config->addDefault('active', 'default','当前使用的模板,值为templates里文件夹名'
 		, Config::NS_TEMPLATE);
 
+	$config->addDefault('with_header','','将会附加在 生成页面的 header 中'
+		, Config::NS_TEMPLATE);
+
+	$config->addDefault('with_footer','','将会附加在 生成页面的 footer 中'
+		, Config::NS_TEMPLATE);
+
 	// 评论相关
 	$config->addDefault('comment_type','disqus',<<<EOT
 启用的社交评论插件,如果为 null|false则不启用

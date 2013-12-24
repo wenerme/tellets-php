@@ -6,8 +6,9 @@ Hook::AddHook(Hook::RESOLVE_REQUEST, 'rssOratomAction');
 Hook::AddHook(Hook::RESOLVE_POST, 'basic_post_resolver');
 Hook::AddHook(Hook::FIND_POST_LIST, 'posts_in_post_dir');
 Hook::AddHook(Hook::RESOLVE_REQUEST, 'update_action');
-Hook::AddHook(Hook::GENERATE_HEADER, 'generate_default_header');
 
+Hook::AddHook(Hook::GENERATE_HEADER, 'generate_default_header');
+Hook::AddHook(Hook::GENERATE_HEADER, 'generate_default_footer');
 
 /**
  * @param Request $request
@@ -119,10 +120,27 @@ function update_action($request)
 
 function generate_default_header()
 {
+	global $config;
+
 	$K = 'strval';
 
 	echo <<<EOT
 <meta name="generator" content="Tellets {$K(TELLETS_VERSION)}">
 EOT;
 
+	// 可能 index 不存在
+	$v = @$config[Config::NS_TEMPLATE]['with_header'];
+	if($v)
+		echo is_array($v)? implode("\n",$v): $v;
+
+}
+
+function generate_default_footer()
+{
+	global $config;
+
+	// 可能 index 不存在
+	$v = @$config[Config::NS_TEMPLATE]['with_footer'];
+	if($v)
+		echo is_array($v)? implode("\n",$v): $v;
 }
