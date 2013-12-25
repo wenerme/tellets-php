@@ -16,16 +16,27 @@ abstract class Parser
 	public abstract  function parseContentOnly($content);
 
 	/**
-	 * 解析文章为 Post
+	 * 该函数将不会自行根据文件名获取文件内容
 	 *
 	 * @param $content
+	 * @param $filename
+	 * @param null|Post $into
 	 * @return Post
+	 * @throws InvalidArgumentException
 	 */
-	public function parseContent($content)
+	public function parseContent($content, $filename, $into = null)
 	{
 		$content = remove_byte_order_mark($content);
 
-		$post = new Post();
+		if(!$into)
+			$post = new Post();
+		else if($into instanceof Post)
+			$post = $into;
+		else
+			throw new InvalidArgumentException('$info is not instanceof Post');
+
+		$post['ext'] = pathinfo($filename, PATHINFO_EXTENSION);
+		$post['hash'] = sha1($content);
 
 		$post->setMetaDate($this->parseMetaOnly($content));
 		if($post->isPublished())
@@ -33,16 +44,17 @@ abstract class Parser
 
 		return $post;
 	}
+
 	/**
-	 * 解析文件,生成一篇文章
+	 * 解析文件,生成一篇文章, 使用默认的方式获取 文件内容
+	 *
 	 * @param $filename
+	 * @param null|Post $into 将内容解析到该对象内
 	 * @return Post
 	 */
-	public function parseFile($filename)
+	public function parseFile($filename, $into = null)
 	{
-		$post = $this->parseContent(file_get_contents($filename));
-		$post['ext'] = pathinfo($filename, PATHINFO_EXTENSION);;
-		return ;
+		return $this->parseContent(file_get_contents($filename), $filename, $into);
 	}
 
 	/**

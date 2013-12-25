@@ -47,8 +47,14 @@ class Tellets
 		$list = $this->getPostFileList();
 		foreach ($list as $file)
 		{
-			echo("add post $file <br>\n");
-			$this->postHelper->addPost(ParserFactory::TryParseFile($file));
+			if(mb_check_encoding($file, 'gbk'))
+				echo "add post ",mb_convert_encoding($file, 'utf-8','gbk')," <br>\n";
+
+			$post = ParserFactory::TryParseFile($file);
+			if($post)
+				$this->postHelper->addPost($post);
+			else
+				throw new Exception("Parse file '$file' to post filed.");
 		}
 
 		return $this;
