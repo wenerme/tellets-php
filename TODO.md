@@ -215,7 +215,7 @@ $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 * X 移除 markdown.php 使用Michelf\Markdown
 * -------------- v 1.1
 * X 完善 feed
-* 完善 markdown 的样式显示
+* X 完善 markdown 的样式显示
 * X 添加 基本的meta,例如 generator
 * X 添加 with_header 和 with_footer 选项,用于在生成时加入到页面中
 * X 添加 ext 元字段到Post,用于记录原来的内容格式.
@@ -223,15 +223,22 @@ $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 * 实现 log
 * 添加 HTMLParser
 * 实现 message 页面消息的传递
+* 添加一个 github helper,以实现更好的缓存,
+记录repo的sha,缓存tree,减少网络访问,并增加解析速度
+
+GitHubHelper 因为不是 tellets必须的,所以以插件的形式添加.
+GitHubHelper 是简单的GitHub操作的包装.
+* 给 github_repo 添加一个 auth 选项,作为默认的auth
 * ---------------v 1.3
 
 
-其他目标
+其他特性目标
 --------
 
 * auto_update 实现后台 update, 时间间隔的update, 使用文件锁实现只允许一个 update
 * tellets 的 favicon
-
+* 多语言文章版本
+* 界面i18n支持
 
 Hooks
 -----

@@ -1,6 +1,6 @@
 <?php
 
-define('TELLETS_VERSION','1.1');
+define('TELLETS_VERSION','1.2');
 
 define('APP_DIR', __DIR__);
 define('TELLETS_DIR', realpath(__DIR__.'/../'));
