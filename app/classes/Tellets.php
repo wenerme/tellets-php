@@ -28,20 +28,21 @@ class Tellets
 
 	/**
 	 * 删除缓存,从新生成所有文章
-	 *
-	 * 只有在登录后才有效
+	 * 只有在登录后才有效,但是当前尚未实现登录
 	 *
 	 * @return $this
+	 * @throws Exception
 	 */
 	public function Update()
 	{
+		global $postHelper;
 		// 删除所有缓存的文章
 		$files = glob(CACHE_DIR . '/*.post');
 		foreach ($files as $file)
 			if (is_file($file))
 				unlink($file);
 
-		$this->postHelper->Clear();
+		$postHelper->Clear();
 
 		// 生成所有文章
 		$list = $this->getPostFileList();
@@ -52,7 +53,7 @@ class Tellets
 
 			$post = ParserFactory::TryParseFile($file);
 			if($post)
-				$this->postHelper->addPost($post);
+				$postHelper->addPost($post);
 			else
 				throw new Exception("Parse file '$file' to post filed.");
 		}
@@ -62,7 +63,8 @@ class Tellets
 
 	public function SetUp()
 	{
-		$this->config['password'] = password_hash($_POST["password"], PASSWORD_DEFAULT);
+		global $config;
+		$config['password'] = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
 		return $this;
 	}
@@ -75,7 +77,8 @@ class Tellets
 	 */
 	public function Login($password)
 	{
-		if (!password_verify($password,$this->config['password']))
+		global $config;
+		if (!password_verify($password,$config['password']))
 			return false;
 
 		$_SERVER['user'] = true;
