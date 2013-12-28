@@ -44,3 +44,12 @@ data/posts/*
 
 # ignore my study
 test.php
+
+# ignore the wiki
+wiki/*
+
+# not used, maybe later
+
+lib/*
+test/*
+composer.json

@@ -229,8 +229,13 @@ $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 GitHubHelper 因为不是 tellets必须的,所以以插件的形式添加.
 GitHubHelper 是简单的GitHub操作的包装.
 * 给 github_repo 添加一个 auth 选项,作为默认的auth
+* github_repo 使用 GitHubHelper 来进行操作
 * ---------------v 1.3
 
+BUGS
+----
+
+* 在 默认的 autoload无效时,添加的一个autoload 不能实现有ns的加载
 
 其他特性目标
 --------
