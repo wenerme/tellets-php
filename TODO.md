@@ -262,3 +262,25 @@ $post, $posts
 ----
 password_compat
 : PHP >= 5.3
+
+REGEX
+-----
+
+###repostring match
+
+use
+
+```
+(?<user>[^/]+) # user name require
+(?:/(?<repo>[^/:]+)) # repo require
+(?::(?<branch>[^/]+))? # branch optional
+(?:/(?<path>.*))? # path optional
+```
+
+match
+```
+username/repo:master/path/to/content;auto=user|password
+username/repo/path/to/content;auto=user|password
+username/repo:master;auto=user|password
+username;auto=user|password
+```
