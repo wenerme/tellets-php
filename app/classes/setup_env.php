@@ -16,6 +16,11 @@ function setup_default_config()
 {
 	global $config;
 
+	$config->addDefault('debug',false,<<<EOT
+是否启用调试模式,当开发 tellets 使用该选项,
+会显示错误等用于调试的信息.
+EOT
+	);
 	$config->addDefault('timezone', 'Asia/Chongqing', <<<EOT
 设置时区,以正确的计算时间.
 请参考:http://www.php.net/manual/zh/timezones.php
@@ -93,8 +98,10 @@ function setup_env_by_config()
 {
 	global $config;
 
+	if($config['debug'])
+		setup_debug();
+
 	date_default_timezone_set($config['timezone']);
-	ini_set('display_errors', true);
 
 	define('BLOG_TITLE', $config['blog_title']);
 	define('INTRO_TITLE', $config['intro_title']);
@@ -106,4 +113,8 @@ function setup_env_by_config()
 	// 似乎无效, 在 5.3 以上设置应该是可以用的
 	// http://php.net/manual/zh/ini.core.php
 	ini_set('short_open_tag', 1);
+}
+function setup_debug()
+{
+	ini_set('display_errors', true);
 }
