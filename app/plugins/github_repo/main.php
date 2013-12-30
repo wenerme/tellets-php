@@ -43,7 +43,14 @@ EOT
 			$helper->setFileCacheDir($cache_dir);
 
 			try{
-				$files = array_merge($files, $helper->getAllLocalBlob($helper->getTreeInPath()));
+				$tree = $helper->getTreeInPath();
+				$tree = array_filter($tree, function($item)
+				{
+					return $item['type'] === 'blob'
+						&& ParserFactory::CanParse($item['path']);
+				});
+
+				$files = array_merge($files, $helper->getAllLocalBlob($tree));
 			}catch (GitHubException $ex)
 			{
 				throw $ex;
@@ -53,7 +60,7 @@ EOT
 		$list = array_merge($list, $files);
 
 		// 删除其余文件
-		$all = glob($cache_dir.'*');
+		$all = glob($cache_dir.DIRECTORY_SEPARATOR.'*');
 		$remove = array_diff($all,$files);
 		array_walk($remove,function($fn){unlink($fn);});
 		//var_dump($files,$all,$remove);

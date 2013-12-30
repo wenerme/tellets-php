@@ -415,7 +415,7 @@ class Repo extends \ArrayObject
 		preg_match_all($option_pattern, $option_string, $option_matches);
 
 		foreach(explode('|','auth|readmeonly') as $k)
-			if(boolval($option_matches[$k][0]))// 确保至少有一个值有效
+			if(boolval($option_matches[$k]) && boolval($option_matches[$k][0]))// 确保至少有一个值有效
 			{
 				// to void dereference
 				$values = array_values(array_filter($option_matches[$k]));

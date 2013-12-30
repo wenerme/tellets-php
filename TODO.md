@@ -223,13 +223,13 @@ $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 * 实现 log
 * 添加 HTMLParser
 * 实现 message 页面消息的传递
-* 添加一个 github helper,以实现更好的缓存,
+* X 添加一个 github helper,以实现更好的缓存,
 记录repo的sha,缓存tree,减少网络访问,并增加解析速度
 
 GitHubHelper 因为不是 tellets必须的,所以以插件的形式添加.
 GitHubHelper 是简单的GitHub操作的包装.
-* 给 github_repo 添加一个 auth 选项,作为默认的auth
-* github_repo 使用 GitHubHelper 来进行操作
+* X 给 github_repo 添加一个 auth 选项,作为默认的auth, 该选项已由 github_helper 实现
+* X github_repo 使用 GitHubHelper 来进行操作
 * 添加 debug 选项,配置是否显示错误等.
 * ---------------v 1.3
 
