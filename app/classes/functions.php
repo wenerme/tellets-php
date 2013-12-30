@@ -161,3 +161,10 @@ if( ! function_exists('boolval'))
 		return !! $var;
 	}
 }
+
+/**
+ * If dir not exists, then make it.
+ * @param $dir
+ */
+function try_mkdir($dir)
+{ file_exists($dir) || call_user_func('mkdir',func_get_args());}
