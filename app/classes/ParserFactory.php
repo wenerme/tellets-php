@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Wener
- * Date: 13-12-10
- * Time: 下午2:46
- */
 
-abstract class ParserFactory
+final class ParserFactory
 {
 	private static $parser = array();
 	private static $instances = array();
@@ -22,12 +16,11 @@ abstract class ParserFactory
 		if($ext == null)
 			return null;
 
-		$instance = @self::$instances[$ext];
+		$instance = &self::$instances[$ext];
 		if($instance == null)
 		{
 			$class = self::$parser[$ext];
 			$instance = new $class;
-			self::$instances[$ext] = $instance;
 		}
 
 		return $instance;
@@ -69,6 +62,15 @@ abstract class ParserFactory
 		self::$parser[$ext] = $classname;
 	}
 
+	/**
+	 * 移除已经添加的 解析器
+	 * @param $ext
+	 */
+	public static function RemoveParser($ext)
+	{
+		unset(self::$parser[$ext]);
+		unset(self::$instances[$ext]);
+	}
 	/**
 	 * 尝试解析文件到Post,如果不能解析,返回null
 	 *
