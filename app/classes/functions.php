@@ -147,3 +147,17 @@ function get_app_url()
 	$url = substr($url, 0, $start);
 	return $url;
 }
+
+if( ! function_exists('boolval'))
+{
+	/**
+	 * Get the boolean value of a variable
+	 *
+	 * @param mixed $var The scalar value being converted to a boolean.
+	 * @return boolean The boolean value of var.
+	 */
+	function boolval($var)
+	{
+		return !! $var;
+	}
+}
