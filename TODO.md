@@ -230,6 +230,7 @@ GitHubHelper 因为不是 tellets必须的,所以以插件的形式添加.
 GitHubHelper 是简单的GitHub操作的包装.
 * 给 github_repo 添加一个 auth 选项,作为默认的auth
 * github_repo 使用 GitHubHelper 来进行操作
+* 添加 debug 选项,配置是否显示错误等.
 * ---------------v 1.3
 
 BUGS

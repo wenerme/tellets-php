@@ -270,7 +270,7 @@ class RepoHelper
 			throw new GitHubException('itme type must be blob');
 
 		$ext = pathinfo($item['path'],PATHINFO_EXTENSION);
-		$fn = self::$DefaultFileCacheDir.DIRECTORY_SEPARATOR."$item[sha].$ext";
+		$fn = $this->fileCacheDir.DIRECTORY_SEPARATOR."$item[sha].$ext";
 		// detect cache
 		if(file_exists($fn))
 			goto DONE;
@@ -299,7 +299,7 @@ class RepoHelper
 			throw new GitHubException('itme type must be blob');
 
 		$ext = pathinfo($item['path'],PATHINFO_EXTENSION);
-		$fn = self::$DefaultFileCacheDir.DIRECTORY_SEPARATOR."$item[sha].$ext";
+		$fn = $this->fileCacheDir.DIRECTORY_SEPARATOR."$item[sha].$ext";
 		// detect cache
 		if(file_exists($fn))
 			unlink($fn);
