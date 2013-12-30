@@ -68,6 +68,7 @@ $tellets = new Tellets();
 include_once CLASSES_DIR.'/predefined_hooks.php';
 // 添加预定义解析器
 ParserFactory::RegisterParser(MarkdownParser::EXTENSION, 'MarkdownParser');
+ParserFactory::RegisterParser(HTMLParser::EXTENSION, 'HTMLParser');
 
 // 启动完成
 Hook::TriggerEvent(Hook::BOOTSTRAP,array());
