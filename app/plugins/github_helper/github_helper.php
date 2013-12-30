@@ -38,7 +38,7 @@ class RepoHelper
 
 	// static var
 	private static $CacheDir;
-	private static $FileCacheDir;
+	private static $DefaultFileCacheDir;
 	private static $IsInit = false;
 
 	private static $Users = array();
@@ -61,6 +61,7 @@ class RepoHelper
 
 	private $branch = null;
 	private $tree = null;
+	private $fileCacheDir = null;
 	/**
 	 * Static Init
 	 */
@@ -71,9 +72,9 @@ class RepoHelper
 		self::$IsInit = true;
 		// cache dir
 		self::$CacheDir = CACHE_DIR.DIRECTORY_SEPARATOR.__NAMESPACE__;
-		self::$FileCacheDir = self::$CacheDir.DIRECTORY_SEPARATOR.'files';
+		self::$DefaultFileCacheDir = self::$CacheDir.DIRECTORY_SEPARATOR.'files';
 		is_dir(self::$CacheDir) || mkdir(self::$CacheDir, 0777, true);
-		is_dir(self::$CacheDir) || mkdir(self::$FileCacheDir, 0777, true);
+		is_dir(self::$CacheDir) || mkdir(self::$DefaultFileCacheDir, 0777, true);
 
 		// load caches
 		//$user_data_fn = self::$CacheDir.DIRECTORY_SEPARATOR.'user.data';
@@ -97,6 +98,8 @@ class RepoHelper
 		if(false == ($repo instanceof Repo))
 			throw new \InvalidArgumentException('$repo parameter should be an instance of Repo');
 		self::Init();// Only init when this class instanced.
+
+		$this->fileCacheDir = self::$DefaultFileCacheDir;
 
 		$this->repo = $repo;
 		$curl = &$this->curl;
@@ -267,7 +270,7 @@ class RepoHelper
 			throw new GitHubException('itme type must be blob');
 
 		$ext = pathinfo($item['path'],PATHINFO_EXTENSION);
-		$fn = self::$FileCacheDir.DIRECTORY_SEPARATOR."$item[sha].$ext";
+		$fn = self::$DefaultFileCacheDir.DIRECTORY_SEPARATOR."$item[sha].$ext";
 		// detect cache
 		if(file_exists($fn))
 			goto DONE;
@@ -296,7 +299,7 @@ class RepoHelper
 			throw new GitHubException('itme type must be blob');
 
 		$ext = pathinfo($item['path'],PATHINFO_EXTENSION);
-		$fn = self::$FileCacheDir.DIRECTORY_SEPARATOR."$item[sha].$ext";
+		$fn = self::$DefaultFileCacheDir.DIRECTORY_SEPARATOR."$item[sha].$ext";
 		// detect cache
 		if(file_exists($fn))
 			unlink($fn);
@@ -352,7 +355,16 @@ X-RateLimit-
 			$this->parseHeader();
 		return $this->rateLimitReset;
 	}
-
+	public function getFileCacheDir()
+	{
+		return $this->fileCacheDir;
+	}
+	public function setFileCacheDir($dir)
+	{
+		if(!is_dir($dir))
+			throw new GitHubException('Cache dir not exists.');
+		$this->fileCacheDir = $dir;
+	}
 }
 
 class GitHubException extends \Exception
