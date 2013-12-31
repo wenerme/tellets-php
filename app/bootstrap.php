@@ -21,6 +21,7 @@ spl_autoload_register(function($name)
 	if(class_exists($name))
 		return;
 	$paths = explode(PATH_SEPARATOR, get_include_path());
+	$name = str_replace('\\',DIRECTORY_SEPARATOR, $name);
 	foreach($paths as $path)
 	{
 		$fn = $path.DIRECTORY_SEPARATOR.$name.'.php';

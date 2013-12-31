@@ -221,7 +221,7 @@ $config['templates']/$config['plugins']将访问 TEMPLATES 和 PLUGINS
 * X 添加 ext 元字段到Post,用于记录原来的内容格式.
 * --------------- v1.2
 * 实现 log
-* 添加 HTMLParser
+* X 添加 HTMLParser
 * 实现 message 页面消息的传递
 * X 添加一个 github helper,以实现更好的缓存,
 记录repo的sha,缓存tree,减少网络访问,并增加解析速度
@@ -236,7 +236,7 @@ GitHubHelper 是简单的GitHub操作的包装.
 BUGS
 ----
 
-* 在 默认的 autoload无效时,添加的一个autoload 不能实现有ns的加载
+* X 在 默认的 autoload无效时,添加的一个autoload 不能实现有ns的加载
 
 其他特性目标
 --------
