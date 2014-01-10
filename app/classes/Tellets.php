@@ -65,7 +65,7 @@ class Tellets
 	{
 		global $config;
 		$config['password'] = password_hash($_POST["password"], PASSWORD_DEFAULT);
-
+        $this->Update();
 		return $this;
 	}
 

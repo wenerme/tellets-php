@@ -13,6 +13,7 @@ Hook::AddHook(Hook::BOOTSTRAP, function()
 	if(is_null($setting))
 	{
 		$setting['enable'] = true;
+        $setting['repos'] = 'wenerme/tellets/README.md';
 
 		$config->addDefault('github_repo',$setting,<<<EOT
 github_repo 插件:

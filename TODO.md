@@ -237,6 +237,8 @@ BUGS
 ----
 
 * X 在 默认的 autoload无效时,添加的一个autoload 不能实现有ns的加载
+* 修改第一次输入密码时的图标问题
+* 第一次初始后,需要UPDATE
 * 安装时的环境检测, 安装时遇到 mb_internal_encoding undefined 错误.
 
 
