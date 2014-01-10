@@ -167,4 +167,4 @@ if( ! function_exists('boolval'))
  * @param $dir
  */
 function try_mkdir($dir)
-{ file_exists($dir) || call_user_func('mkdir',func_get_args());}
+{ file_exists($dir) || call_user_func_array('mkdir',func_get_args());}
