@@ -41,7 +41,7 @@ Getting Started
 - [Updating Tellets](#updating-tellets)
 - [MIT-License](#mit-license)
 
-For more, please visit __[WIKI](https://github.com/WenerLove/dropplets/wiki/All-about-tellets)__
+For more, please visit __[WIKI](https://github.com/wenerme/tellets/wiki/All-about-tellets)__
 
 DEMO: [MY BLOG](http://blog.wener.me/)
 
@@ -188,7 +188,7 @@ Tellets 是一个基于Markup的博客平台.
 * 无繁杂的管理系统,你只需要写就可以了
 * 集成了 disqus和多说,可选择打开.
 
-更多信息,请前往 __[wiki](https://github.com/WenerLove/dropplets/wiki/All-about-tellets)__
+更多信息,请前往 __[wiki](https://github.com/wenerme/tellets/wiki/All-about-tellets)__
 
 Getting Started
 ---------------
@@ -259,12 +259,12 @@ Tellets 的由来
 --------------
 
 最开始我是从[dropplets](https://github.com/circa75/dropplets)
- [fork](https://github.com/WenerLove/dropplets)的,
+ [fork](https://github.com/wenerme/dropplets)的,
 很喜欢 dropplets 的简单,但是很多达不到我想要的,原项目也不便于修改,
-所以我就将根据从 dropplets 受到的启发,从写成了 tellets.
+所以我就将根据从 dropplets 受到的启发,重写成了 tellets.
 
 Tellets 这个名字中的 lets 是继承自 dropplets.
-而取名 tellets 是意为 let's tell.
+而取名 tellets 是意为 `let's tell`.
 
 搭建需求
 -------
@@ -278,7 +278,7 @@ short-open-tag
 我有尝试在运行时使用 ini_set 设置,但是似乎没有成功.
 
 Nginx 设置
-:
+: Working on it
 
 Apache
 : 需要有 Rewrite 模块, 这个基本都有的.
@@ -355,6 +355,6 @@ $template['comment_user'] = 'wener';
 许可
 ----
 
-因为 Tellets 是我完全从写的,直接选择的 MIT 许可, 与 原生的 dropplets 不同.
+因为 Tellets 是我完全重写的,直接选择的 MIT 许可, 与 原生的 dropplets 不同.
 
 

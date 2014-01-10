@@ -233,10 +233,17 @@ GitHubHelper 是简单的GitHub操作的包装.
 * X 添加 debug 选项,配置是否显示错误等.
 * ---------------v 1.3
 
+
 BUGS
 ----
 
 * X 在 默认的 autoload无效时,添加的一个autoload 不能实现有ns的加载
+
+其他工作
+-------
+
+* 添加 nginx 测试
+* 再添加一个模板,使用 bootstrap.
 
 其他特性目标
 --------
@@ -245,9 +252,8 @@ BUGS
 * tellets 的 favicon
 * 多语言文章版本
 * 界面i18n支持
+* 添加 template 元信息支持,可针对文章选择模板
 
-Hooks
------
 
 上下文
 ----------
