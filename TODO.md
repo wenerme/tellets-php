@@ -247,7 +247,14 @@ BUGS
 
 * 添加 nginx 测试
 * 再添加一个模板,使用 bootstrap.
-* 在京东云 app 上搭建 tellets
+* 在京东云 app 上搭建 tellets  
+这个暂时不能实现,因为app不支持文件/目录的读写
+* 添加一个 MongoDB PostHelper,
+这样使用mongodb来保存文章就可以了
+,但是还有个问题是,config的保存,虽然在上传时可以写一部分配置,但是不能下载和编辑
+,因此只能/必须使用remote_admin插件的功能,也必须要该插件能工作时
+tellets 才能部署在 jae 上.
+还有,git的缓存,必须要使用数据库实现缓存~?这个也是个问题!
 
 其他特性目标
 --------
