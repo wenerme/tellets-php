@@ -5,6 +5,8 @@
 <!-- state: published -->
 <!-- link: tellets -->
 
+## __This is deprecated, the new project is [wenerme/tellets](https://github.com/wenerme/tellets).__
+
 * 中文 [说明文档](#tellets-cn)
 * English [README](#tellets-en)
 
